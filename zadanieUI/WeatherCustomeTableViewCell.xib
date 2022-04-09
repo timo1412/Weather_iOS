@@ -1,0 +1,85 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="WeatherCustomeTableViewCell" id="KGk-i7-Jjw" customClass="WeatherCustomeTableViewCell" customModule="zadanieUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="LBX-c0-kF8">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="[Rain%]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTL-E6-BmC">
+                                <rect key="frame" x="144.5" y="11" width="60.5" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="[day]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DS8-GS-XJ1">
+                                <rect key="frame" x="16" y="11" width="39.5" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="cloud.rain.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Dwd-9K-5ol">
+                                <rect key="frame" x="63.5" y="11" width="21" height="23.5"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Temp]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeA-On-XrI">
+                                <rect key="frame" x="225" y="11" width="65" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="xeA-On-XrI" firstAttribute="leading" secondItem="iTL-E6-BmC" secondAttribute="trailing" constant="20" id="8TP-tl-p5X"/>
+                            <constraint firstItem="iTL-E6-BmC" firstAttribute="top" secondItem="LBX-c0-kF8" secondAttribute="top" constant="11" id="FRd-ii-0eg"/>
+                            <constraint firstAttribute="bottom" secondItem="Dwd-9K-5ol" secondAttribute="bottom" constant="11" id="FdZ-Vl-Kzt"/>
+                            <constraint firstItem="DS8-GS-XJ1" firstAttribute="top" secondItem="LBX-c0-kF8" secondAttribute="top" constant="11" id="LuO-Qd-MZr"/>
+                            <constraint firstItem="DS8-GS-XJ1" firstAttribute="leading" secondItem="LBX-c0-kF8" secondAttribute="leading" constant="16" id="OCh-KM-xtu"/>
+                            <constraint firstAttribute="bottom" secondItem="xeA-On-XrI" secondAttribute="bottom" constant="11" id="VZ1-cu-Bd0"/>
+                            <constraint firstItem="iTL-E6-BmC" firstAttribute="leading" secondItem="Dwd-9K-5ol" secondAttribute="trailing" constant="60" id="YqD-Rb-JVv"/>
+                            <constraint firstItem="xeA-On-XrI" firstAttribute="top" secondItem="LBX-c0-kF8" secondAttribute="top" constant="11" id="aRg-lu-cgE"/>
+                            <constraint firstAttribute="bottom" secondItem="iTL-E6-BmC" secondAttribute="bottom" constant="11" id="aqE-7c-gc6"/>
+                            <constraint firstItem="Dwd-9K-5ol" firstAttribute="leading" secondItem="DS8-GS-XJ1" secondAttribute="trailing" constant="8" id="eiu-GY-Vnw"/>
+                            <constraint firstItem="Dwd-9K-5ol" firstAttribute="top" secondItem="LBX-c0-kF8" secondAttribute="top" constant="11" id="oei-vA-rKv"/>
+                            <constraint firstAttribute="trailing" secondItem="xeA-On-XrI" secondAttribute="trailing" constant="30" id="wdM-5N-ssx"/>
+                            <constraint firstAttribute="bottom" secondItem="DS8-GS-XJ1" secondAttribute="bottom" constant="11" id="xxt-Us-rmX"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstItem="LBX-c0-kF8" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="5Z1-4b-ktX"/>
+                    <constraint firstAttribute="trailing" secondItem="LBX-c0-kF8" secondAttribute="trailing" id="PeT-oa-cDI"/>
+                    <constraint firstItem="LBX-c0-kF8" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="RoD-Lz-05k"/>
+                    <constraint firstAttribute="bottom" secondItem="LBX-c0-kF8" secondAttribute="bottom" id="t0S-bq-B7D"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="dayLabel" destination="DS8-GS-XJ1" id="Daa-nY-X9K"/>
+                <outlet property="rainLabel" destination="iTL-E6-BmC" id="qOk-lW-hT0"/>
+                <outlet property="tempLabel" destination="xeA-On-XrI" id="M14-WM-tKv"/>
+            </connections>
+            <point key="canvasLocation" x="131.8840579710145" y="90.401785714285708"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cloud.rain.fill" catalog="system" width="125" height="128"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
