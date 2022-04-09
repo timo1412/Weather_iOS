@@ -3,6 +3,7 @@
     <device id="retina6_1" orientation="portrait" appearance="light"/>
     <dependencies>
         <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Named colors" minToolsVersion="9.0"/>
         <capability name="Safe area layout guides" minToolsVersion="9.0"/>
         <capability name="System colors in document resources" minToolsVersion="11.0"/>
         <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
@@ -21,39 +22,40 @@
                         <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
                         <subviews>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="[Rain%]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="iTL-E6-BmC">
-                                <rect key="frame" x="144.5" y="11" width="60.5" height="22"/>
+                                <rect key="frame" x="148" y="11" width="60.5" height="22"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <color key="textColor" name="AccentColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="pondelok" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DS8-GS-XJ1">
+                                <rect key="frame" x="16" y="11" width="71" height="22"/>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="[day]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="DS8-GS-XJ1">
-                                <rect key="frame" x="16" y="11" width="39.5" height="22"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Temp]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeA-On-XrI">
+                                <rect key="frame" x="228.5" y="11" width="61.5" height="22"/>
+                                <fontDescription key="fontDescription" type="boldSystem" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
                             <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="252" verticalHuggingPriority="251" image="cloud.rain.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="Dwd-9K-5ol">
-                                <rect key="frame" x="63.5" y="11" width="21" height="23.5"/>
+                                <rect key="frame" x="117" y="11" width="21" height="23.5"/>
+                                <color key="tintColor" systemColor="secondaryLabelColor"/>
                             </imageView>
-                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="[Temp]" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="xeA-On-XrI">
-                                <rect key="frame" x="225" y="11" width="65" height="22"/>
-                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
-                                <nil key="textColor"/>
-                                <nil key="highlightedColor"/>
-                            </label>
                         </subviews>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="xeA-On-XrI" firstAttribute="leading" secondItem="iTL-E6-BmC" secondAttribute="trailing" constant="20" id="8TP-tl-p5X"/>
+                            <constraint firstItem="Dwd-9K-5ol" firstAttribute="leading" secondItem="DS8-GS-XJ1" secondAttribute="trailing" constant="30" id="9Jj-jA-wKo"/>
                             <constraint firstItem="iTL-E6-BmC" firstAttribute="top" secondItem="LBX-c0-kF8" secondAttribute="top" constant="11" id="FRd-ii-0eg"/>
                             <constraint firstAttribute="bottom" secondItem="Dwd-9K-5ol" secondAttribute="bottom" constant="11" id="FdZ-Vl-Kzt"/>
                             <constraint firstItem="DS8-GS-XJ1" firstAttribute="top" secondItem="LBX-c0-kF8" secondAttribute="top" constant="11" id="LuO-Qd-MZr"/>
                             <constraint firstItem="DS8-GS-XJ1" firstAttribute="leading" secondItem="LBX-c0-kF8" secondAttribute="leading" constant="16" id="OCh-KM-xtu"/>
+                            <constraint firstItem="iTL-E6-BmC" firstAttribute="leading" secondItem="Dwd-9K-5ol" secondAttribute="trailing" constant="10" id="OvH-7x-WlY"/>
                             <constraint firstAttribute="bottom" secondItem="xeA-On-XrI" secondAttribute="bottom" constant="11" id="VZ1-cu-Bd0"/>
-                            <constraint firstItem="iTL-E6-BmC" firstAttribute="leading" secondItem="Dwd-9K-5ol" secondAttribute="trailing" constant="60" id="YqD-Rb-JVv"/>
                             <constraint firstItem="xeA-On-XrI" firstAttribute="top" secondItem="LBX-c0-kF8" secondAttribute="top" constant="11" id="aRg-lu-cgE"/>
                             <constraint firstAttribute="bottom" secondItem="iTL-E6-BmC" secondAttribute="bottom" constant="11" id="aqE-7c-gc6"/>
-                            <constraint firstItem="Dwd-9K-5ol" firstAttribute="leading" secondItem="DS8-GS-XJ1" secondAttribute="trailing" constant="8" id="eiu-GY-Vnw"/>
                             <constraint firstItem="Dwd-9K-5ol" firstAttribute="top" secondItem="LBX-c0-kF8" secondAttribute="top" constant="11" id="oei-vA-rKv"/>
                             <constraint firstAttribute="trailing" secondItem="xeA-On-XrI" secondAttribute="trailing" constant="30" id="wdM-5N-ssx"/>
                             <constraint firstAttribute="bottom" secondItem="DS8-GS-XJ1" secondAttribute="bottom" constant="11" id="xxt-Us-rmX"/>
@@ -78,6 +80,12 @@
     </objects>
     <resources>
         <image name="cloud.rain.fill" catalog="system" width="125" height="128"/>
+        <namedColor name="AccentColor">
+            <color red="0.0" green="0.46000000000000002" blue="0.89000000000000001" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
+        </namedColor>
+        <systemColor name="secondaryLabelColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.59999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

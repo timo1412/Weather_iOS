@@ -10,7 +10,7 @@ import UIKit
 struct WeatherCell{
     let day : String
     let temp:String
-    let feelsTemp: String
+    let rainPer: String
     
 }
 
@@ -28,20 +28,20 @@ class ViewController: UIViewController {
     @IBOutlet weak var feelTemptLabel: UILabel!
     
     var weatherDays: [WeatherCell] {
-        [WeatherCell(day: "Pondelok", temp: "20", feelsTemp:"19"),
-         WeatherCell(day: "Utorok", temp: "15", feelsTemp:"19"),
-         WeatherCell(day: "Streda", temp: "18", feelsTemp:"19"),
-         WeatherCell(day: "Štvrtok", temp: "10", feelsTemp:"11"),
-         WeatherCell(day: "Piatok", temp: "9", feelsTemp:"8"),
-         WeatherCell(day: "Sobota", temp: "14", feelsTemp:"15"),
-         WeatherCell(day: "Nedela", temp: "25", feelsTemp:"25")
+        [WeatherCell(day: "Pondelok", temp: "19°", rainPer:"20%"),
+         WeatherCell(day: "Utorok  ", temp: "19°", rainPer:"15%"),
+         WeatherCell(day: "Streda  ", temp: "19°", rainPer:"18%"),
+         WeatherCell(day: "Štvrtok ", temp: "11°", rainPer:"10%"),
+         WeatherCell(day: "Piatok  ", temp: "8°", rainPer:" 9%"),
+         WeatherCell(day: "Sobota  ", temp: "15°", rainPer:"14%"),
+         WeatherCell(day: "Nedela  ", temp: "25°", rainPer:"25%")
         ]
     }
     
     override func viewDidLoad() {
         
         tableView.dataSource = self
-        tableView.register(UINib(nibName: "WeatherCustomeTableViewCell", bundle: nil ), forCellReuseIdentifier: "WeatherCustomeTableViewCell")
+        tableView.register(UINib(nibName: WeatherCustomeTableViewCell.classString, bundle: nil ), forCellReuseIdentifier: WeatherCustomeTableViewCell.classString)
         
         super.viewDidLoad()
         // Do any additional setup after loading the view.
@@ -68,14 +68,12 @@ extension ViewController : UITableViewDataSource {
 //    FUNKCIA KTORÁ NAFORMÁTUJE JEDNOTLIVE CELLS AK MOJA weatherCell NIE JE JE AKO WeatherTableViewCell TAK VRÁTIM PRÁZDNU TABULKU
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let weatherCell = tableView.dequeueReusableCell(withIdentifier: "WeatherCustomeTableViewCell", for: indexPath) as? WeatherCustomeTableViewCell else {
+        guard let weatherCell = tableView.dequeueReusableCell(withIdentifier: WeatherCustomeTableViewCell.classString, for: indexPath) as? WeatherCustomeTableViewCell else {
             return UITableViewCell()
         }
 //        let weatherCell  = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
         let weatherDay = weatherDays[indexPath.row]
-        weatherCell.dayLabel.text = weatherDay.day
-        weatherCell.tempLabel.text = weatherDay.temp
-        weatherCell.rainLabel.text = weatherDay.feelsTemp
+        weatherCell.setupView(day: weatherDay)
      
         return weatherCell
     }
