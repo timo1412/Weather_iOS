@@ -13,6 +13,8 @@ class WeatherCustomeTableViewCell: UITableViewCell {
         String(describing: WeatherCustomeTableViewCell.self)
     }
     
+    
+    
     @IBOutlet weak var rainLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
     @IBOutlet weak var tempLabel: UILabel!

@@ -6,7 +6,7 @@
 //
 
 import UIKit
-
+import CoreLocation
 struct WeatherCell{
     let day : String
     let temp:String
@@ -18,7 +18,7 @@ struct WeatherCell{
 class ViewController: UIViewController {
 
     
-    
+//    MARK: outlets
     @IBOutlet weak var tableView: UITableView!
     @IBOutlet weak var dateLabel: UILabel!
     @IBOutlet weak var temptLabel: UILabel!
@@ -26,23 +26,26 @@ class ViewController: UIViewController {
     @IBOutlet weak var descWeatherLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var feelTemptLabel: UILabel!
-    
+//    MARK: variables
     var weatherDays: [WeatherCell] {
-        [WeatherCell(day: "Pondelok", temp: "19°", rainPer:"20%"),
-         WeatherCell(day: "Utorok  ", temp: "19°", rainPer:"15%"),
-         WeatherCell(day: "Streda  ", temp: "19°", rainPer:"18%"),
-         WeatherCell(day: "Štvrtok ", temp: "11°", rainPer:"10%"),
-         WeatherCell(day: "Piatok  ", temp: "8°", rainPer:" 9%"),
-         WeatherCell(day: "Sobota  ", temp: "15°", rainPer:"14%"),
-         WeatherCell(day: "Nedela  ", temp: "25°", rainPer:"25%")
+        [WeatherCell(day: "Pondelok", temp: " 19°", rainPer:"20%"),
+         WeatherCell(day: "Utorok  ", temp: " 19°", rainPer:"15%"),
+         WeatherCell(day: "Streda  ", temp: " 19°", rainPer:"18%"),
+         WeatherCell(day: "Štvrtok ", temp: " 11°", rainPer:"10%"),
+         WeatherCell(day: "Piatok  ", temp: " 8° ", rainPer:" 9%"),
+         WeatherCell(day: "Sobota  ", temp: " 15°", rainPer:"14%"),
+         WeatherCell(day: "Nedela  ", temp: " 25°", rainPer:"25%")
         ]
     }
     
+
+    
+//    MARK: lifecycle
     override func viewDidLoad() {
         
         tableView.dataSource = self
         tableView.register(UINib(nibName: WeatherCustomeTableViewCell.classString, bundle: nil ), forCellReuseIdentifier: WeatherCustomeTableViewCell.classString)
-        
+        LocationManager.shered.getLocation()
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
@@ -78,4 +81,5 @@ extension ViewController : UITableViewDataSource {
         return weatherCell
     }
 }
+
 
