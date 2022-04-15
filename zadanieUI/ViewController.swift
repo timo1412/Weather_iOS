@@ -42,10 +42,18 @@ class ViewController: UIViewController {
     
 //    MARK: lifecycle
     override func viewDidLoad() {
-        
         tableView.dataSource = self
         tableView.register(UINib(nibName: WeatherCustomeTableViewCell.classString, bundle: nil ), forCellReuseIdentifier: WeatherCustomeTableViewCell.classString)
-        LocationManager.shered.getLocation()
+        LocationManager.shered.getLocation{ [weak self] location , error in
+            if let error = error {
+                print("Tu je chyba")
+            } else if let location = location {
+                self?.locationLabel.text = location.city
+
+            }
+            
+        }
+        
         super.viewDidLoad()
         // Do any additional setup after loading the view.
     }
@@ -81,5 +89,7 @@ extension ViewController : UITableViewDataSource {
         return weatherCell
     }
 }
+
+
 
 

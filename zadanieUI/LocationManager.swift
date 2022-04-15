@@ -8,10 +8,27 @@
 import Foundation
 import CoreLocation
 
+struct CurrentLocation {
+    let city: String
+    let coordinates: CLLocationCoordinate2D
+}
+
+
+protocol LocationManagerDelegate: NSObject  {
+    func locationManager(_ locationManager: LocationManager, didLoadCurrent location: CurrentLocation)
+}
+
+typealias CityCompletionHandler = ((CurrentLocation? , Error?) -> Void)
+
 class LocationManager : CLLocationManager{
     static let shered  = LocationManager()
     private var geoCoder = CLGeocoder()
-    func getLocation() {
+    
+    weak var cityDelegate: LocationManagerDelegate?
+    var completion: CityCompletionHandler?
+    
+    func getLocation(completion: CityCompletionHandler?) {
+        self.completion = completion
         requestWhenInUseAuthorization()
         startUpdatingLocation()
         delegate = self
@@ -24,15 +41,20 @@ extension LocationManager : CLLocationManagerDelegate{
         guard let location = locations.last else{
             return
         }
-        geoCoder.reverseGeocodeLocation(location) { placemarks , error in
+        geoCoder.reverseGeocodeLocation(location) { [weak self] placemarks , error in
+            guard let self = self else {return  }
+            
             guard let placemark = placemarks?.first ,let city = placemark.locality , error == nil else {
+                if let completion = self.completion {
+                    completion(nil , error)
+                }
                 return
             }
-            print(city)
+            let currentLocation = CurrentLocation ( city: city, coordinates:location.coordinate)
+            self.completion?(currentLocation , nil)
         }
-            
     }
-
+  
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
 //        print(manager.authorizationStatus)
