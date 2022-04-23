@@ -26,15 +26,6 @@
                                         <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" preservesSuperviewLayoutMargins="YES" insetsLayoutMarginsFromSafeArea="NO" tableViewCell="z1r-Px-xtg" id="ltg-aG-Va9">
                                             <rect key="frame" x="0.0" y="0.0" width="398" height="43.5"/>
                                             <autoresizingMask key="autoresizingMask"/>
-                                            <subviews>
-                                                <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Detail" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="ryr-8c-Dsb">
-                                                    <rect key="frame" x="318" y="15" width="366" height="17"/>
-                                                    <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
-                                                    <fontDescription key="fontDescription" style="UICTFontTextStyleBody"/>
-                                                    <nil key="textColor"/>
-                                                    <nil key="highlightedColor"/>
-                                                </label>
-                                            </subviews>
                                         </tableViewCellContentView>
                                     </tableViewCell>
                                 </prototypes>
@@ -53,7 +44,13 @@
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="Kyp-wg-FbJ" secondAttribute="bottom" constant="8" id="ZUd-0x-Nw3"/>
                         </constraints>
                     </view>
-                    <navigationItem key="navigationItem" id="6BQ-t7-GcA"/>
+                    <navigationItem key="navigationItem" id="6BQ-t7-GcA">
+                        <barButtonItem key="leftBarButtonItem" systemItem="cancel" id="SIv-6g-6Uh">
+                            <connections>
+                                <action selector="close:" destination="Y6W-OH-hqX" id="3gy-Zi-Hjl"/>
+                            </connections>
+                        </barButtonItem>
+                    </navigationItem>
                     <connections>
                         <outlet property="tableView" destination="Kyp-wg-FbJ" id="QWW-xp-jxR"/>
                     </connections>

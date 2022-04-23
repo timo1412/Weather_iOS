@@ -9,10 +9,12 @@ import UIKit
 
 class SearchViewController: UIViewController {
 
-    
+//    MARK: - outlets
+
     @IBOutlet weak var tableView: UITableView!
     
     private let searchController = UISearchController(searchResultsController: nil)
+    private let searchManager = SearchManager()
     
     private var places = [Place]()
     override func viewDidLoad() {
@@ -21,19 +23,25 @@ class SearchViewController: UIViewController {
         // Do any additional setup after loading the view.
     }
     
+    @IBAction func close(_ sender: Any) {
+        dismiss(animated: true)
+    }
+    
+    
     func setupSearchController(){
 //        navigationItem.title = "Search"
         navigationItem.searchController = searchController
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController?.searchBar.delegate = self
     }
+    
 
 }
 
 
 extension SearchViewController: UISearchBarDelegate{
     func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        LocationManager.shered.getLocalSearchResult(from: searchText) { places in
+        searchManager.getLocalSearchResult(from: searchText) { places in
             self.places = places
             self.tableView.reloadData()
         }
@@ -55,5 +63,24 @@ extension SearchViewController : UITableViewDataSource {
         searchCell.detailTextLabel?.text = place.country
         return searchCell
     }
+    
+}
+
+extension SearchViewController : UITableViewDelegate {
+    func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        let place = places [indexPath.row]
+        presentWeatherDetail(with: place)
+    }
+    
+    func presentWeatherDetail(with place: Place){
+        let storyboard = UIStoryboard(name: "DetailViewController", bundle: nil)
+        if let weatherViewControloer = storyboard.instantiateViewController(withIdentifier: "WeatherDetail") as? ViewController {
+            weatherViewControloer.place = place
+            navigationController?.pushViewController(weatherViewControloer, animated: true)
+        }
+    }
+
+
+
 }
 

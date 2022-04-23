@@ -27,6 +27,9 @@ class ViewController: UIViewController {
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var feelTemptLabel: UILabel!
 //    MARK: variables
+    
+    var place: Place?
+    
     var weatherDays: [WeatherCell] {
         [WeatherCell(day: "Pondelok", temp: " 19°", rainPer:"20%"),
          WeatherCell(day: "Utorok  ", temp: " 19°", rainPer:"15%"),
@@ -52,7 +55,9 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         
 //        volanie serachu je jedno aky sender tam pošlem (hociaký typ hocičoho) pretože sender nikde nepouživam
-        search(String())
+//        search(String())
+        
+        locationLabel.text = place?.city
         
         tableView.dataSource = self
         tableView.register(UINib(nibName: WeatherCustomeTableViewCell.classString, bundle: nil ), forCellReuseIdentifier: WeatherCustomeTableViewCell.classString)
