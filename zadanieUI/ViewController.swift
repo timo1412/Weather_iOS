@@ -40,8 +40,20 @@ class ViewController: UIViewController {
     
 
     
-//    MARK: lifecycle
+    @IBAction func search(_ sender: Any) {
+        let storyboard = UIStoryboard(name: "SearchViewControler", bundle: nil)
+        if let navigationControloer = storyboard.instantiateInitialViewController() {
+            present(navigationControloer, animated: true)
+        }
+    }
+    
+    //    MARK: lifecycle
     override func viewDidLoad() {
+        super.viewDidLoad()
+        
+//        volanie serachu je jedno aky sender tam pošlem (hociaký typ hocičoho) pretože sender nikde nepouživam
+        search(String())
+        
         tableView.dataSource = self
         tableView.register(UINib(nibName: WeatherCustomeTableViewCell.classString, bundle: nil ), forCellReuseIdentifier: WeatherCustomeTableViewCell.classString)
         LocationManager.shered.getLocation{ [weak self] location , error in
@@ -54,7 +66,7 @@ class ViewController: UIViewController {
             
         }
         
-        super.viewDidLoad()
+        
         // Do any additional setup after loading the view.
     }
 
