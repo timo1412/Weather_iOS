@@ -20,6 +20,8 @@
 				</dict>
 			</array>
 		</dict>
+		<key>UIApplicationSupportsTabbedSceneCollection</key>
+		<false/>
 	</dict>
 </dict>
 </plist>

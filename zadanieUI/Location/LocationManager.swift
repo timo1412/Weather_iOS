@@ -24,9 +24,6 @@ class LocationManager : CLLocationManager{
     static let shered  = LocationManager()
     private var geoCoder = CLGeocoder()
     
-    
-    
-    
     weak var cityDelegate: LocationManagerDelegate?
     var completion: CityCompletionHandler?
     

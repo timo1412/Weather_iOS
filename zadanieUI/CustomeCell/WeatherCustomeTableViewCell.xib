@@ -74,6 +74,7 @@
                 <outlet property="dayLabel" destination="DS8-GS-XJ1" id="Daa-nY-X9K"/>
                 <outlet property="rainLabel" destination="iTL-E6-BmC" id="qOk-lW-hT0"/>
                 <outlet property="tempLabel" destination="xeA-On-XrI" id="M14-WM-tKv"/>
+                <outlet property="weatherIcon" destination="Dwd-9K-5ol" id="rr4-Rg-N9J"/>
             </connections>
             <point key="canvasLocation" x="122" y="-16"/>
         </tableViewCell>

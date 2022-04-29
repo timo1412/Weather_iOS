@@ -30,17 +30,9 @@ class ViewController: UIViewController {
     
     var place: Place?
     
-    var weatherDays: [WeatherCell] {
-        [WeatherCell(day: "Pondelok", temp: " 19°", rainPer:"20%"),
-         WeatherCell(day: "Utorok  ", temp: " 19°", rainPer:"15%"),
-         WeatherCell(day: "Streda  ", temp: " 19°", rainPer:"18%"),
-         WeatherCell(day: "Štvrtok ", temp: " 11°", rainPer:"10%"),
-         WeatherCell(day: "Piatok  ", temp: " 8° ", rainPer:" 9%"),
-         WeatherCell(day: "Sobota  ", temp: " 15°", rainPer:"14%"),
-         WeatherCell(day: "Nedela  ", temp: " 25°", rainPer:"25%")
-        ]
-    }
+    var refreshControl = UIRefreshControl()
     
+    var days = [DailyWeather]()
 
     
     @IBAction func search(_ sender: Any) {
@@ -54,27 +46,43 @@ class ViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         
-//        volanie serachu je jedno aky sender tam pošlem (hociaký typ hocičoho) pretože sender nikde nepouživam
-//        search(String())
+        let formatter = DateFormatter()
+        formatter.dateStyle = .medium
+        let currentDate = Date()
+        dateLabel.text = formatter.string(from: currentDate)
         
         locationLabel.text = place?.city
         
-        tableView.dataSource = self
-        tableView.register(UINib(nibName: WeatherCustomeTableViewCell.classString, bundle: nil ), forCellReuseIdentifier: WeatherCustomeTableViewCell.classString)
         LocationManager.shered.getLocation{ [weak self] location , error in
+            guard let self = self else { return }
             if let error = error {
                 print("Tu je chyba")
             } else if let location = location {
-                self?.locationLabel.text = location.city
-
+                RequestManager.shered.getWeatherData(for: location.coordinates) { response in
+                    
+                    switch response {
+                    case .success(let weatherData):
+                        
+                        self.setupView(with: weatherData.current)
+                        self.days = weatherData.days
+                        self.tableView.reloadData()
+                        
+                    case .failure(let error):
+                        print(error)
+                    }
+                }
+                self.locationLabel.text = location.city
             }
-            
         }
-        
-        
-        // Do any additional setup after loading the view.
+        tableView.dataSource = self
+        tableView.register(UINib(nibName: WeatherCustomeTableViewCell.classString, bundle: nil ), forCellReuseIdentifier: WeatherCustomeTableViewCell.classString)
     }
-
+    
+    func setupView(with currentWeather: CurrentWeather) {
+        temptLabel.text = currentWeather.temperatureWithCelsius
+        feelTemptLabel.text = currentWeather.fellsLikeWithCelsius
+        descWeatherLabel.text = currentWeather.weather.first?.description
+    }
 
 }
 
@@ -85,7 +93,7 @@ extension ViewController : UITableViewDataSource {
 //    }
     //    FUNKCIA KTORÁ VRÁTI POČET RIADKOV V TABLE VIEW
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weatherDays.count
+        return days.count
             //ZABEZPOECI ZOBRAZOVANIE IBA PRVÝCH 3 DNÍ
             //        if section == 0 {
             //            return 3
@@ -96,14 +104,13 @@ extension ViewController : UITableViewDataSource {
 //    FUNKCIA KTORÁ NAFORMÁTUJE JEDNOTLIVE CELLS AK MOJA weatherCell NIE JE JE AKO WeatherTableViewCell TAK VRÁTIM PRÁZDNU TABULKU
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let weatherCell = tableView.dequeueReusableCell(withIdentifier: WeatherCustomeTableViewCell.classString, for: indexPath) as? WeatherCustomeTableViewCell else {
+        guard let weatherDayCell = tableView.dequeueReusableCell(withIdentifier: WeatherCustomeTableViewCell.classString, for: indexPath) as? WeatherCustomeTableViewCell else {
             return UITableViewCell()
         }
 //        let weatherCell  = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
-        let weatherDay = weatherDays[indexPath.row]
-        weatherCell.setupView(day: weatherDay)
-     
-        return weatherCell
+//        let weatherDay = weatherDays[indexPath.row]
+        weatherDayCell.setupCell(with: days[indexPath.row])
+        return weatherDayCell
     }
 }
 
