@@ -11,15 +11,32 @@
         <!--Map-->
         <scene sceneID="s0d-6b-0kx">
             <objects>
-                <viewController id="Y6W-OH-hqX" sceneMemberID="viewController">
+                <viewController id="Y6W-OH-hqX" customClass="MapController" customModule="zadanieUI" customModuleProvider="target" sceneMemberID="viewController">
                     <view key="view" contentMode="scaleToFill" id="5EZ-qb-Rvc">
                         <rect key="frame" x="0.0" y="0.0" width="414" height="896"/>
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
+                        <subviews>
+                            <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sRD-Vs-zu1">
+                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <connections>
+                                    <outlet property="delegate" destination="Y6W-OH-hqX" id="7hN-Rz-iXT"/>
+                                </connections>
+                            </mapView>
+                        </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="sRD-Vs-zu1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Y5o-HX-x2n"/>
+                            <constraint firstItem="sRD-Vs-zu1" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="cRJ-hH-2Gl"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="sRD-Vs-zu1" secondAttribute="bottom" id="eWl-nc-LH2"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="sRD-Vs-zu1" secondAttribute="trailing" id="lVr-eS-ppC"/>
+                        </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map" catalog="system" id="bZ5-xb-06S"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
+                    <connections>
+                        <outlet property="mapView" destination="sRD-Vs-zu1" id="FbM-Mo-a7o"/>
+                    </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>

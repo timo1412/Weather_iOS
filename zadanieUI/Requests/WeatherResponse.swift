@@ -50,7 +50,7 @@ struct DailyWeather: Decodable {
     let weather: [Weather]
     let precipitation: Double
     
-    var formatedPrecipitation: String {"\(precipitation*100)%"}
+    var formatedPrecipitation: String {"\(Int(precipitation*100))%"}
 
     enum CodingKeys: String, CodingKey {
         
@@ -93,7 +93,7 @@ struct Weather: Decodable {
         case "01d":
             return UIImage(systemName: "sun.max.fill")
         case "02d":
-            return UIImage(systemName: "sloud.sun.fill")
+            return UIImage(systemName: "cloud.sun.fill")
         default:
             return UIImage(systemName: "moon.circle.fill")
         }

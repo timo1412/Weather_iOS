@@ -19,13 +19,21 @@ protocol LocationManagerDelegate: NSObject  {
 }
 
 typealias CityCompletionHandler = ((CurrentLocation? , Error?) -> Void)
+typealias AuthorizationHandler = ((Bool) -> Void)
 
 class LocationManager : CLLocationManager{
     static let shered  = LocationManager()
+    
     private var geoCoder = CLGeocoder()
     
+    var denied : Bool {
+        LocationManager.shered.authorizationStatus == .denied
+    }
+    
     weak var cityDelegate: LocationManagerDelegate?
+    
     var completion: CityCompletionHandler?
+    var authorizationCompletion: AuthorizationHandler?
     
     func getLocation(completion: CityCompletionHandler?) {
         self.completion = completion
@@ -34,9 +42,15 @@ class LocationManager : CLLocationManager{
         delegate = self
     }
     
+    func onAuthorizationChange(completion: @escaping AuthorizationHandler) {
+        authorizationCompletion = completion
+    }
+    
 
 }
 
+
+//MARK: LOCATION MANAGER DELEGATE
 extension LocationManager : CLLocationManagerDelegate{
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        print(locations)
@@ -54,6 +68,7 @@ extension LocationManager : CLLocationManagerDelegate{
             }
             let currentLocation = CurrentLocation ( city: city, coordinates:location.coordinate)
             self.completion?(currentLocation , nil)
+            self.stopUpdatingLocation()
         }
     }
   
@@ -62,9 +77,9 @@ extension LocationManager : CLLocationManagerDelegate{
 //        print(manager.authorizationStatus)
         switch manager.authorizationStatus {
         case .denied:
-            print("denied")
+            authorizationCompletion?(false)
         case .authorizedWhenInUse , .authorizedAlways:
-            print("Authorized")
+            authorizationCompletion?(true)
         case .notDetermined:
             print("Not yet")
         case .restricted:
