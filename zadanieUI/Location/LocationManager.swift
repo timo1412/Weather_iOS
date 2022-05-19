@@ -7,13 +7,19 @@
 
 import Foundation
 import CoreLocation
+import MapKit
 
 struct CurrentLocation {
     let city: String
     let coordinates: CLLocationCoordinate2D
 }
 
-
+protocol LocationStreetManagerDelegate : NSObject {
+    func locationManager(_ locationManager: LocationManager, didLoadLocation mapLocation: String)
+}
+protocol LocationManagerMapDelegate : NSObject {
+    func locationManager(_locationManager: LocationManager, didLoadMapLocation mapLocation: String)
+}
 protocol LocationManagerDelegate: NSObject  {
     func locationManager(_ locationManager: LocationManager, didLoadCurrent location: CurrentLocation)
 }
@@ -23,9 +29,9 @@ typealias AuthorizationHandler = ((Bool) -> Void)
 
 class LocationManager : CLLocationManager{
     static let shered  = LocationManager()
-    
     private var geoCoder = CLGeocoder()
-    
+    var previousLocation: CLLocation?
+    weak var userMapLocation: LocationManagerMapDelegate?
     var denied : Bool {
         LocationManager.shered.authorizationStatus == .denied
     }
@@ -46,17 +52,26 @@ class LocationManager : CLLocationManager{
         authorizationCompletion = completion
     }
     
-
+    func getCenterLocation(for mapView: MKMapView)->CLLocation{
+        let latitude = mapView.centerCoordinate.latitude
+        let lontitude = mapView.centerCoordinate.longitude
+        
+        return CLLocation(latitude: latitude, longitude: lontitude)
+    }
 }
 
 
 //MARK: LOCATION MANAGER DELEGATE
 extension LocationManager : CLLocationManagerDelegate{
+    
+    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
 //        print(locations)
         guard let location = locations.last else{
             return
         }
+        print(location)
+        previousLocation = location
         geoCoder.reverseGeocodeLocation(location) { [weak self] placemarks , error in
             guard let self = self else {return  }
             
@@ -68,6 +83,7 @@ extension LocationManager : CLLocationManagerDelegate{
             }
             let currentLocation = CurrentLocation ( city: city, coordinates:location.coordinate)
             self.completion?(currentLocation , nil)
+            self.userMapLocation?.locationManager(_locationManager: self, didLoadMapLocation: city)
             self.stopUpdatingLocation()
         }
     }
@@ -89,3 +105,5 @@ extension LocationManager : CLLocationManagerDelegate{
         }
     }
 }
+
+

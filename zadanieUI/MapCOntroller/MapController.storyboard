@@ -17,36 +17,63 @@
                         <autoresizingMask key="autoresizingMask" widthSizable="YES" heightSizable="YES"/>
                         <subviews>
                             <mapView clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="scaleToFill" mapType="standard" showsUserLocation="YES" translatesAutoresizingMaskIntoConstraints="NO" id="sRD-Vs-zu1">
-                                <rect key="frame" x="0.0" y="44" width="414" height="769"/>
+                                <rect key="frame" x="0.0" y="44" width="414" height="719"/>
                                 <connections>
                                     <outlet property="delegate" destination="Y6W-OH-hqX" id="7hN-Rz-iXT"/>
                                 </connections>
                             </mapView>
+                            <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="pin" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="9eM-A0-ry7">
+                                <rect key="frame" x="189" y="383.5" width="36" height="41"/>
+                                <color key="tintColor" systemColor="systemRedColor"/>
+                                <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="38" scale="small" weight="bold"/>
+                            </imageView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="addressLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGf-Xl-Fa6">
+                                <rect key="frame" x="8" y="771" width="398" height="42"/>
+                                <color key="backgroundColor" systemColor="placeholderTextColor"/>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="sRD-Vs-zu1" secondAttribute="bottom" constant="50" id="2zF-sQ-ei6"/>
+                            <constraint firstItem="uGf-Xl-Fa6" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="7Fv-J9-M48"/>
+                            <constraint firstItem="uGf-Xl-Fa6" firstAttribute="top" secondItem="sRD-Vs-zu1" secondAttribute="bottom" constant="8" id="7Hx-Hc-VhW"/>
+                            <constraint firstItem="9eM-A0-ry7" firstAttribute="centerX" secondItem="sRD-Vs-zu1" secondAttribute="centerX" id="8vy-AK-jsQ"/>
+                            <constraint firstItem="uGf-Xl-Fa6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="EZu-my-CzT"/>
+                            <constraint firstItem="9eM-A0-ry7" firstAttribute="centerX" secondItem="sRD-Vs-zu1" secondAttribute="centerX" id="KTE-G2-Jzg"/>
                             <constraint firstItem="sRD-Vs-zu1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Y5o-HX-x2n"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="uGf-Xl-Fa6" secondAttribute="trailing" constant="8" id="a16-kc-ig6"/>
                             <constraint firstItem="sRD-Vs-zu1" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="cRJ-hH-2Gl"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="sRD-Vs-zu1" secondAttribute="bottom" id="eWl-nc-LH2"/>
+                            <constraint firstItem="9eM-A0-ry7" firstAttribute="centerY" secondItem="sRD-Vs-zu1" secondAttribute="centerY" id="eeU-6o-fOi"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="sRD-Vs-zu1" secondAttribute="trailing" id="lVr-eS-ppC"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map" catalog="system" id="bZ5-xb-06S"/>
                     <simulatedTabBarMetrics key="simulatedBottomBarMetrics"/>
                     <connections>
+                        <outlet property="addressLabel" destination="uGf-Xl-Fa6" id="eGM-gg-hxB"/>
                         <outlet property="mapView" destination="sRD-Vs-zu1" id="FbM-Mo-a7o"/>
                     </connections>
                 </viewController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="Ief-a0-LHa" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="41" y="86"/>
+            <point key="canvasLocation" x="40.579710144927539" y="85.714285714285708"/>
         </scene>
     </scenes>
     <resources>
         <image name="map" catalog="system" width="128" height="110"/>
+        <image name="pin" catalog="system" width="119" height="128"/>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+        <systemColor name="systemRedColor">
+            <color red="1" green="0.23137254901960785" blue="0.18823529411764706" alpha="1" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>
     </resources>
 </document>
