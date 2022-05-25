@@ -21,7 +21,7 @@ protocol LocationManagerMapDelegate : NSObject {
     func locationManager(_locationManager: LocationManager, didLoadMapLocation mapLocation: String)
 }
 protocol LocationManagerDelegate: NSObject  {
-    func locationManager(_ locationManager: LocationManager, didLoadCurrent location: CurrentLocation)
+    func locationManager(_locationManager: LocationManager, didLoadCurrent location: CurrentLocation)
 }
 
 typealias CityCompletionHandler = ((CurrentLocation? , Error?) -> Void)
@@ -31,6 +31,7 @@ class LocationManager : CLLocationManager{
     static let shered  = LocationManager()
     private var geoCoder = CLGeocoder()
     var previousLocation: CLLocation?
+    weak var charLocation: LocationManagerDelegate?
     weak var userMapLocation: LocationManagerMapDelegate?
     var denied : Bool {
         LocationManager.shered.authorizationStatus == .denied

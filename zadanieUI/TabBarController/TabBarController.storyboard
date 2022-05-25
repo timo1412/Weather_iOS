@@ -16,9 +16,10 @@
                         <color key="backgroundColor" white="0.0" alpha="0.0" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
                     </tabBar>
                     <connections>
-                        <segue destination="joh-Fo-WgU" kind="relationship" relationship="viewControllers" id="66W-42-97F"/>
                         <segue destination="Yta-Rx-O3c" kind="relationship" relationship="viewControllers" id="v2s-u8-2aW"/>
                         <segue destination="CDl-LA-k5y" kind="relationship" relationship="viewControllers" id="yBp-UV-Z2l"/>
+                        <segue destination="BxT-rg-LMy" kind="relationship" relationship="viewControllers" id="lty-tN-hJs"/>
+                        <segue destination="vWx-bV-cxa" kind="relationship" relationship="viewControllers" id="eOX-8U-Sit"/>
                     </connections>
                 </tabBarController>
                 <placeholder placeholderIdentifier="IBFirstResponder" id="VNz-sv-x8h" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
@@ -35,15 +36,25 @@
             </objects>
             <point key="canvasLocation" x="-347" y="39"/>
         </scene>
-        <!--FavoriteViewController-->
-        <scene sceneID="h0Y-4S-OLd">
+        <!--DaysController-->
+        <scene sceneID="ZL6-hP-0V4">
             <objects>
-                <viewControllerPlaceholder storyboardName="FavoriteViewController" id="joh-Fo-WgU" sceneMemberID="viewController">
-                    <tabBarItem key="tabBarItem" title="Item" id="zYl-rU-n4X"/>
+                <viewControllerPlaceholder storyboardName="DaysController" id="BxT-rg-LMy" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="u78-Gj-gSR"/>
                 </viewControllerPlaceholder>
-                <placeholder placeholderIdentifier="IBFirstResponder" id="ajA-4O-EdX" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="gbN-7k-D2f" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
             </objects>
-            <point key="canvasLocation" x="-385" y="188"/>
+            <point key="canvasLocation" x="-432" y="165"/>
+        </scene>
+        <!--ChartsController-->
+        <scene sceneID="q8A-wQ-iUA">
+            <objects>
+                <viewControllerPlaceholder storyboardName="ChartsController" id="vWx-bV-cxa" sceneMemberID="viewController">
+                    <tabBarItem key="tabBarItem" title="Item" id="q5m-Z7-Py4"/>
+                </viewControllerPlaceholder>
+                <placeholder placeholderIdentifier="IBFirstResponder" id="w02-qD-dkF" userLabel="First Responder" customClass="UIResponder" sceneMemberID="firstResponder"/>
+            </objects>
+            <point key="canvasLocation" x="-456" y="237"/>
         </scene>
         <!--DetailViewController-->
         <scene sceneID="Azg-Qv-BXA">

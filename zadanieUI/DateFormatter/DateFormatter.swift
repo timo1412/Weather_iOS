@@ -16,6 +16,12 @@ extension DateFormatter {
         return dateFormartter
     }()
     
+    static let timeDateFormarttet: DateFormatter = {
+        let timeFormartter = DateFormatter()
+        timeFormartter.dateFormat = "E:HH:mm"
+        return timeFormartter
+    }()
+    
     static let mediumDateFormartter: DateFormatter = {
         let dateFormartter = DateFormatter()
         dateFormartter.dateStyle = .full

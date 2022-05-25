@@ -25,7 +25,7 @@ enum State{
 class ViewController: UIViewController {
 
     
-//    MARK: OUTLETS
+    //    MARK: OUTLETS
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -36,12 +36,11 @@ class ViewController: UIViewController {
     @IBOutlet weak var descWeatherLabel: UILabel!
     @IBOutlet weak var locationLabel: UILabel!
     @IBOutlet weak var feelTemptLabel: UILabel!
-//    MARK: VARIABLES
     
-
+//    MARK: VARIABLES
     var place: Place?
     var refreshControl = UIRefreshControl()
-    var days = [DailyWeather]()
+    var hours = [CurrentWeather]()
     var location : CurrentLocation?
     var state: State = .loading {
         didSet{
@@ -59,6 +58,7 @@ class ViewController: UIViewController {
     
     //    MARK: LIFECYCLE
     override func viewDidLoad() {
+        
         super.viewDidLoad()
         activityIndicator.startAnimating()
         setupTableView()
@@ -74,6 +74,8 @@ class ViewController: UIViewController {
         } else {
             updateLocation()
         }
+        
+//        let firstChart = myLineChart()
     }
 }
 
@@ -105,7 +107,6 @@ private extension ViewController {
         feelTemptLabel.text = currentWeather.fellsLikeWithCelsius
         descWeatherLabel.text = currentWeather.weather.first?.description
         dateLabel.text = DateFormatter.mediumDateFormartter.string(from: currentWeather.date)
-        locationLabel.text = place?.city
     }
     
     func presentAlert() {
@@ -140,7 +141,7 @@ private extension ViewController {
             refreshControl.endRefreshing()
             activityIndicator.stopAnimating()
             setupView(with: weatherData.current)
-            days = weatherData.days
+            hours = weatherData.hourly
             tableView.isHidden = false
             emptyView.isHidden = true
             tableView.reloadSections(IndexSet(integer: 0), with: .fade )
@@ -167,14 +168,15 @@ private extension ViewController {
 
             switch response {
             case .success(let weatherData):
+                print(response)
                 self.state = .success(weatherData)
             case .failure(let error):
+                print(response)
                 self.state = .error(error.localizedDescription )
                 
             }
         }
-        
-        print(location.city)
+
         self.locationLabel.text = location.city
         
     }
@@ -202,7 +204,7 @@ extension ViewController : UITableViewDataSource {
     //    }
     //    FUNKCIA KTORÁ VRÁTI POČET RIADKOV V TABLE VIEW
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return days.count
+        return hours.count
         //ZABEZPOECI ZOBRAZOVANIE IBA PRVÝCH 3 DNÍ
         //        if section == 0 {
         //            return 3
@@ -218,7 +220,7 @@ extension ViewController : UITableViewDataSource {
         }
         //        let weatherCell  = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
         //        let weatherDay = weatherDays[indexPath.row]
-        weatherDayCell.setupCell(with: days[indexPath.row])
+        weatherDayCell.setupCell(with: hours[indexPath.row])
         return weatherDayCell
     }
 }

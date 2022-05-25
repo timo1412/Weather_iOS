@@ -11,17 +11,18 @@ import MapKit
 
 class MapController: UIViewController {
     @IBOutlet weak var mapView: MKMapView!
-    
-   
     @IBOutlet weak var addressLabel: UILabel!
+    
     private var geocoder = CLGeocoder()
-    weak var streetMapLocation: LocationStreetManagerDelegate?
-    let regionInMeter:Double = 10000
+    
+
+    
+    let regionInMeter:Double = 500
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         LocationManager.shered.getLocation(completion: LocationManager.shered.completion)
         LocationManager.shered.userMapLocation = self
-        
     }
 }
 
@@ -48,7 +49,7 @@ extension MapController: MKMapViewDelegate {
             let streetName = placemark.thoroughfare ?? ""
             let mapLat = placemark.location?.coordinate.latitude
             let mapLon = placemark.location?.coordinate.longitude
-            print(" lat \(mapLat) , lon \(mapLon)")
+//            print(" lat \(mapLat) , lon \(mapLon)")
             self.addressLabel.text = "\(streetName) \(streetNumber)"
         }
     }

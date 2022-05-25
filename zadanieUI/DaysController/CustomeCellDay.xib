@@ -1,0 +1,93 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<document type="com.apple.InterfaceBuilder3.CocoaTouch.XIB" version="3.0" toolsVersion="20037" targetRuntime="iOS.CocoaTouch" propertyAccessControl="none" useAutolayout="YES" useTraitCollections="YES" useSafeAreas="YES" colorMatched="YES">
+    <device id="retina6_1" orientation="portrait" appearance="light"/>
+    <dependencies>
+        <plugIn identifier="com.apple.InterfaceBuilder.IBCocoaTouchPlugin" version="20020"/>
+        <capability name="Safe area layout guides" minToolsVersion="9.0"/>
+        <capability name="System colors in document resources" minToolsVersion="11.0"/>
+        <capability name="documents saved in the Xcode 8 format" minToolsVersion="8.0"/>
+    </dependencies>
+    <objects>
+        <placeholder placeholderIdentifier="IBFilesOwner" id="-1" userLabel="File's Owner"/>
+        <placeholder placeholderIdentifier="IBFirstResponder" id="-2" customClass="UIResponder"/>
+        <tableViewCell contentMode="scaleToFill" selectionStyle="default" indentationWidth="10" reuseIdentifier="CustomeCellDay" id="KGk-i7-Jjw" customClass="CustomeCellDay" customModule="zadanieUI" customModuleProvider="target">
+            <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+            <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+            <tableViewCellContentView key="contentView" opaque="NO" clipsSubviews="YES" multipleTouchEnabled="YES" contentMode="center" tableViewCell="KGk-i7-Jjw" id="H2p-sc-9uM">
+                <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                <autoresizingMask key="autoresizingMask"/>
+                <subviews>
+                    <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="06w-Oy-juG">
+                        <rect key="frame" x="0.0" y="0.0" width="320" height="44"/>
+                        <subviews>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="XXl-7c-gig">
+                                <rect key="frame" x="8" y="12" width="110" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="110" id="thY-T7-y0e"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                            <stackView opaque="NO" contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="jas-DP-B7z">
+                                <rect key="frame" x="128" y="0.0" width="83" height="44"/>
+                                <subviews>
+                                    <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="252" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="a9l-DG-uUu">
+                                        <rect key="frame" x="0.0" y="0.0" width="41.5" height="44"/>
+                                        <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                        <nil key="textColor"/>
+                                        <nil key="highlightedColor"/>
+                                    </label>
+                                    <imageView clipsSubviews="YES" userInteractionEnabled="NO" contentMode="scaleAspectFit" horizontalHuggingPriority="251" verticalHuggingPriority="251" image="cloud.fill" catalog="system" translatesAutoresizingMaskIntoConstraints="NO" id="AHK-jF-3wy">
+                                        <rect key="frame" x="41.5" y="1.5" width="41.5" height="39.5"/>
+                                    </imageView>
+                                </subviews>
+                            </stackView>
+                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="Label" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="eRN-54-Txb">
+                                <rect key="frame" x="231" y="12" width="81" height="20"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="81" id="abQ-Ll-Ed6"/>
+                                </constraints>
+                                <fontDescription key="fontDescription" type="system" pointSize="17"/>
+                                <nil key="textColor"/>
+                                <nil key="highlightedColor"/>
+                            </label>
+                        </subviews>
+                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
+                        <constraints>
+                            <constraint firstItem="jas-DP-B7z" firstAttribute="top" secondItem="06w-Oy-juG" secondAttribute="top" id="Bcq-fq-MLJ"/>
+                            <constraint firstItem="jas-DP-B7z" firstAttribute="leading" secondItem="XXl-7c-gig" secondAttribute="trailing" constant="10" id="FLa-Dw-Q1i"/>
+                            <constraint firstItem="eRN-54-Txb" firstAttribute="leading" secondItem="jas-DP-B7z" secondAttribute="trailing" constant="20" id="Jbb-f1-9bF"/>
+                            <constraint firstItem="XXl-7c-gig" firstAttribute="leading" secondItem="06w-Oy-juG" secondAttribute="leadingMargin" id="TrA-mm-7hw"/>
+                            <constraint firstItem="XXl-7c-gig" firstAttribute="centerY" secondItem="jas-DP-B7z" secondAttribute="centerY" id="Wb3-5x-FZU"/>
+                            <constraint firstItem="eRN-54-Txb" firstAttribute="trailing" secondItem="06w-Oy-juG" secondAttribute="trailingMargin" id="cbU-Ef-C3v"/>
+                            <constraint firstAttribute="bottom" secondItem="jas-DP-B7z" secondAttribute="bottom" id="cqB-F9-kuQ"/>
+                            <constraint firstItem="XXl-7c-gig" firstAttribute="baseline" secondItem="eRN-54-Txb" secondAttribute="baseline" id="efH-La-iij"/>
+                            <constraint firstItem="XXl-7c-gig" firstAttribute="firstBaseline" secondItem="eRN-54-Txb" secondAttribute="firstBaseline" id="kJN-dB-0cE"/>
+                            <constraint firstItem="XXl-7c-gig" firstAttribute="top" secondItem="06w-Oy-juG" secondAttribute="top" constant="12" id="wzj-1L-Vxt"/>
+                        </constraints>
+                    </view>
+                </subviews>
+                <constraints>
+                    <constraint firstAttribute="bottom" secondItem="06w-Oy-juG" secondAttribute="bottom" id="MAC-2M-9Bd"/>
+                    <constraint firstItem="06w-Oy-juG" firstAttribute="top" secondItem="H2p-sc-9uM" secondAttribute="top" id="heK-NE-xeu"/>
+                    <constraint firstAttribute="trailing" secondItem="06w-Oy-juG" secondAttribute="trailing" id="jqo-2F-FXG"/>
+                    <constraint firstItem="06w-Oy-juG" firstAttribute="leading" secondItem="H2p-sc-9uM" secondAttribute="leading" id="ppG-cp-ww2"/>
+                </constraints>
+            </tableViewCellContentView>
+            <viewLayoutGuide key="safeArea" id="njF-e1-oar"/>
+            <connections>
+                <outlet property="dayLabel" destination="XXl-7c-gig" id="LPl-dq-p8F"/>
+                <outlet property="rainLabel" destination="a9l-DG-uUu" id="Gmd-1r-WGq"/>
+                <outlet property="tempLabel" destination="eRN-54-Txb" id="lU4-MH-2sF"/>
+            </connections>
+            <point key="canvasLocation" x="137.68115942028987" y="114.50892857142857"/>
+        </tableViewCell>
+    </objects>
+    <resources>
+        <image name="cloud.fill" catalog="system" width="128" height="88"/>
+        <systemColor name="systemBackgroundColor">
+            <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
+    </resources>
+</document>
