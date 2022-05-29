@@ -11,23 +11,12 @@ import TinyConstraints
 
 class myLineChart {
     
-    var yValues: [ChartDataEntry]
-    var data: [Double]
-    
-    init(data:[Double]) {
-        self.data = data
-        yValues = [
-            ChartDataEntry(x: 0.0, y: 1.0),
-            ChartDataEntry(x: 2.0, y: 2.0),
-            ChartDataEntry(x: 3.0, y: 3.0),
-            ChartDataEntry(x: 4.0, y: 4.0)
-        ]
+    var yValues = [ChartDataEntry]()
+
+    init(data: [ChartDataEntry]) {
+        yValues = data
     }
-    
-    func pripravData() {
-        
-    }
-    
+
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
         chartView.backgroundColor = .systemBlue
@@ -45,15 +34,15 @@ class myLineChart {
 //        fond pisma na osi
         xAxis.labelFont = .boldSystemFont(ofSize:10)
 //        pocet zobrazovanych hodnot na osi
-        
-        xAxis.setLabelCount(10, force: false)
+        xAxis.setLabelCount(18, force: false)
 //        farba hodnot na osi x
         xAxis.labelTextColor = .white
 //        hrubka osi x
         xAxis.axisLineWidth = 3
 //        farba osi x
         xAxis.axisLineColor = .black
-
+//        xAxis.valueFormatter = self.lineChartView.xAxis.valueFormatter
+        
         chartView.animate(xAxisDuration: 2.5)
 
         return chartView
@@ -83,6 +72,14 @@ class myLineChart {
         lineChartView.data=data1
     }
     
-     
+    func naplnGrafDatami() {
+//        let yValues = [ChartDataEntry]
+        for i in 1...30 {
+            yValues.append(ChartDataEntry(x: Double(i)+1.4, y: Double(i)+0.89))
+        }
+    }
 }
 
+//extension myLineChart : IndexAxisValueFormatter {
+//
+//}

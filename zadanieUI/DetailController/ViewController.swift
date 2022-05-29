@@ -19,13 +19,13 @@ struct WeatherCell{
 enum State{
     case loading
     case error(String)
-    case success(WeatherResponse)
+    case success(HourlyResponse)
 }
 
 class ViewController: UIViewController {
 
-    
     //    MARK: OUTLETS
+
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -40,13 +40,14 @@ class ViewController: UIViewController {
 //    MARK: VARIABLES
     var place: Place?
     var refreshControl = UIRefreshControl()
-    var hours = [CurrentWeather]()
+    var hours = [Current]()
     var location : CurrentLocation?
     var state: State = .loading {
         didSet{
             reloadState()
         }
     }
+    var favouriteLocation = [CurrentLocation]()
     
 //    MARK: BUTTON
     @IBAction func search(_ sender: Any) {
@@ -55,6 +56,20 @@ class ViewController: UIViewController {
             present(navigationControloer, animated: true)
         }
     }
+    
+    @IBAction func saveFavButton(_ sender: Any) {
+//        print("ukladam favourite")
+//        print("Mesto")
+//        print(location?.city)
+//        print("coordinaty")
+//        print(location?.coordinates)
+        savingFavLocation(location: location!)
+    }
+
+    
+    
+    
+    
     
     //    MARK: LIFECYCLE
     override func viewDidLoad() {
@@ -79,7 +94,6 @@ class ViewController: UIViewController {
     }
 }
 
-
 //MARK: ACTION
 private extension ViewController {
     @IBAction func reload(_ sender: Any) {
@@ -102,11 +116,12 @@ private extension ViewController {
         refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
     }
 //    nadstavenie hlavicky detail view
-    func setupView(with currentWeather: CurrentWeather) {
-        temptLabel.text = currentWeather.temperatureWithCelsius
-        feelTemptLabel.text = currentWeather.fellsLikeWithCelsius
-        descWeatherLabel.text = currentWeather.weather.first?.description
-        dateLabel.text = DateFormatter.mediumDateFormartter.string(from: currentWeather.date)
+    func setupView(with currentWeather: HourlyResponse) {
+        temptLabel.text = currentWeather.current.temperatureInCelzius
+        feelTemptLabel.text = currentWeather.current.feelsLikeString
+        descWeatherLabel.text = currentWeather.current.weather.description
+        print(currentWeather.current.weather.description)
+        dateLabel.text = DateFormatter.mediumDateFormartter.string(from: currentWeather.current.date)
     }
     
     func presentAlert() {
@@ -126,6 +141,10 @@ private extension ViewController {
         present(alertController, animated: true)
     }
     
+    func savingLocation(with: CLLocation) {
+        
+    }
+    
     func reloadState() {
         switch state {
         case .loading:
@@ -140,7 +159,7 @@ private extension ViewController {
         case .success(let weatherData):
             refreshControl.endRefreshing()
             activityIndicator.stopAnimating()
-            setupView(with: weatherData.current)
+            setupView(with: weatherData)
             hours = weatherData.hourly
             tableView.isHidden = false
             emptyView.isHidden = true
@@ -162,7 +181,7 @@ private extension ViewController {
         
         state = .loading
         
-        RequestManager.shered.getWeatherData(for: location.coordinates) { [weak self] response in
+        RequestManager.shered.getHourlyWeather(for: location.coordinates) { [weak self] response in
 //            keby som tento guard nemal tak kazdy jeden self mi zahuci že nie je option týmto zabezpečim že vzdy bude existovať
             guard let self = self else {return}
 
@@ -194,6 +213,13 @@ private extension ViewController {
         }
     }
     
+}
+//MARK: User default
+extension ViewController {
+    func savingFavLocation(location: CurrentLocation) {
+//        UserDefaultManager.shered.defaults.set(location, forKey: location.city)
+        UserDefaultManager.shered.defaults.setValue(location, forKey: location.city)
+    }
 }
 
 //MARK: TABLE VIERW DATA SOURCE

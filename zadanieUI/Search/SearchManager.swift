@@ -44,7 +44,7 @@ struct Place {
 extension SearchManager: MKLocalSearchCompleterDelegate{
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         
-        //        prechadza to čo nam vrati completer ersult pozrie sa či nie je prazdny ak nie je tak jeho componenty rozdely podla čiarky , a ak je počet komponentov väčší ako jeden tak z čoho vyplýva že to bude mesto zo štátom tak vytvori Place s mestom a daným štátom
+        //        prechadza to čo nam vrati completer result pozrie sa či nie je prazdny ak nie je tak jeho componenty rozdely podla čiarky , a ak je počet komponentov väčší ako jeden tak z čoho vyplýva že to bude mesto zo štátom tak vytvori Place s mestom a daným štátom
         let places = completer.results
             .filter{ !$0.title.isEmpty }
             .map{$0.title.components(separatedBy: ",")}

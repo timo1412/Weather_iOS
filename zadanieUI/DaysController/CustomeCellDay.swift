@@ -17,10 +17,11 @@ class CustomeCellDay: UITableViewCell {
     @IBOutlet weak var rainLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
     
-    func setupTable(with weather: DailyWeather) {
+    func setupTable(with weather: Daily) {
         dayLabel.text = DateFormatter.dayDateFormartter.string(from: weather.date)
-        tempLabel.text = weather.temperature.temperatureWithCelsius
-        rainLabel.text = weather.formatedPrecipitation
+        tempLabel.text = weather.temperatureString
+        rainLabel.text = weather.precipitationStrin
+        
     }
     
 }

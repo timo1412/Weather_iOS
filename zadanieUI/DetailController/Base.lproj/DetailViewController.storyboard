@@ -59,6 +59,18 @@
                                             <nil key="textColor"/>
                                             <nil key="highlightedColor"/>
                                         </label>
+                                        <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="DQk-2Q-cJ5">
+                                            <rect key="frame" x="16" y="304" width="198" height="31"/>
+                                            <color key="backgroundColor" systemColor="placeholderTextColor"/>
+                                            <constraints>
+                                                <constraint firstAttribute="width" constant="164" id="2PK-y5-VoI"/>
+                                            </constraints>
+                                            <state key="normal" title="Button"/>
+                                            <buttonConfiguration key="configuration" style="plain" image="star.fill" catalog="system" title="Favourites"/>
+                                            <connections>
+                                                <action selector="saveFavButton:" destination="BYZ-38-t0r" eventType="touchUpInside" id="qZT-k0-h9A"/>
+                                            </connections>
+                                        </button>
                                     </subviews>
                                     <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                     <constraints>
@@ -66,6 +78,8 @@
                                         <constraint firstAttribute="trailing" secondItem="7KT-Xb-eG8" secondAttribute="trailing" constant="16" id="Bhi-pw-6Hx"/>
                                         <constraint firstItem="NLV-jF-VIh" firstAttribute="leading" secondItem="RUb-km-VNi" secondAttribute="leading" constant="16" id="OQ8-97-0g6"/>
                                         <constraint firstItem="NLV-jF-VIh" firstAttribute="baseline" secondItem="Bal-tf-PoI" secondAttribute="firstBaseline" id="PdO-oT-ws7"/>
+                                        <constraint firstItem="DQk-2Q-cJ5" firstAttribute="top" secondItem="7KT-Xb-eG8" secondAttribute="bottom" constant="8" id="Pqe-aZ-Zqm"/>
+                                        <constraint firstItem="DQk-2Q-cJ5" firstAttribute="leading" secondItem="7KT-Xb-eG8" secondAttribute="leading" id="QXO-cB-D7G"/>
                                         <constraint firstItem="NLV-jF-VIh" firstAttribute="centerY" secondItem="Bal-tf-PoI" secondAttribute="centerY" id="SXL-Gm-ed9"/>
                                         <constraint firstItem="wL5-EA-vws" firstAttribute="leading" secondItem="RUb-km-VNi" secondAttribute="leading" constant="16" id="VSb-6n-GCR"/>
                                         <constraint firstItem="7KT-Xb-eG8" firstAttribute="top" secondItem="PeG-ge-HMh" secondAttribute="bottom" constant="16" id="XWo-c7-aI5"/>
@@ -77,8 +91,10 @@
                                         <constraint firstItem="7KT-Xb-eG8" firstAttribute="leading" secondItem="RUb-km-VNi" secondAttribute="leading" constant="16" id="kel-Dq-Dv8"/>
                                         <constraint firstAttribute="trailing" secondItem="wL5-EA-vws" secondAttribute="trailing" constant="16" id="l9R-Zh-2Eh"/>
                                         <constraint firstItem="Bal-tf-PoI" firstAttribute="leading" secondItem="NLV-jF-VIh" secondAttribute="trailing" constant="16" id="qA3-ng-CtE"/>
+                                        <constraint firstAttribute="bottom" secondItem="DQk-2Q-cJ5" secondAttribute="bottom" constant="2" id="rfZ-qu-uQy"/>
                                         <constraint firstAttribute="trailing" secondItem="IP1-bj-Ac3" secondAttribute="trailing" constant="16" id="t3t-2a-Lns"/>
                                         <constraint firstAttribute="trailing" secondItem="PeG-ge-HMh" secondAttribute="trailing" constant="16" id="tze-xY-fIv"/>
+                                        <constraint firstAttribute="trailing" secondItem="DQk-2Q-cJ5" secondAttribute="trailing" constant="200" id="vdk-YK-r5c"/>
                                         <constraint firstItem="IP1-bj-Ac3" firstAttribute="top" secondItem="Bal-tf-PoI" secondAttribute="bottom" constant="40" id="yE6-7O-A2D"/>
                                         <constraint firstItem="PeG-ge-HMh" firstAttribute="leading" secondItem="RUb-km-VNi" secondAttribute="leading" constant="16" id="yNV-Y7-TuA"/>
                                     </constraints>
@@ -187,7 +203,11 @@
     </scenes>
     <resources>
         <image name="location.fill" catalog="system" width="128" height="121"/>
+        <image name="star.fill" catalog="system" width="128" height="116"/>
         <image name="umbrella.fill" catalog="system" width="122" height="128"/>
+        <systemColor name="placeholderTextColor">
+            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
+        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

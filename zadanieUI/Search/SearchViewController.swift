@@ -34,8 +34,6 @@ class SearchViewController: UIViewController {
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController?.searchBar.delegate = self
     }
-    
-
 }
 
 
@@ -45,7 +43,6 @@ extension SearchViewController: UISearchBarDelegate{
             self.places = places
             self.tableView.reloadData()
         }
-        
     }
 }
 
@@ -63,7 +60,6 @@ extension SearchViewController : UITableViewDataSource {
         searchCell.detailTextLabel?.text = place.country
         return searchCell
     }
-    
 }
 
 extension SearchViewController : UITableViewDelegate {

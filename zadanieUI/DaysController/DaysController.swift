@@ -18,10 +18,11 @@ class DaysController : UIViewController{
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     
-    var weather = [DailyWeather]()
+   
     var location : CurrentLocation?
     var refreshControl = UIRefreshControl()
-
+    var Days = [Daily]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         activityIndicator.startAnimating()
@@ -37,21 +38,20 @@ class DaysController : UIViewController{
         } else {
             updateLocation()
         }
-        setupTableCells(weather: weather)
     }
 }
 
 extension DaysController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
-        return weather.count
+        return Days.count
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         guard let weatheDayCell = tableView.dequeueReusableCell(withIdentifier: CustomeCellDay.classString, for: indexPath) as? CustomeCellDay else {
             return UITableViewCell()
         }
-        weatheDayCell.setupTable(with: weather[indexPath.row])
-       
+        weatheDayCell.setupTable(with: Days[indexPath.row])
+        
         return weatheDayCell
     }
 }
@@ -63,7 +63,7 @@ extension DaysController :UITableViewDelegate {
 }
 
 private extension DaysController {
-    func setupTableCells(weather : [DailyWeather] ) {
+    func setupTableCells(weatherData: DailyResponse) {
         tableView.isHidden = false
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
@@ -80,7 +80,8 @@ extension DaysController {
         guard let location = location else{
             return
         }
-        RequestManager.shered.getWeatherData(for: location.coordinates) { response in
+        
+        RequestManager.shered.getDailyWeather(for: location.coordinates) { response in
             self.tableView.isHidden = false
             self.refreshControl.endRefreshing()
             self.activityIndicator.stopAnimating()
@@ -88,8 +89,8 @@ extension DaysController {
             case .success(let weatherData):
                 print("Succes")
                 print(weatherData)
-                self.weather = weatherData.daily
-                self.setupTableCells(weather: weatherData.daily)
+                self.Days = weatherData.daily
+                self.setupTableCells(weatherData: weatherData.self)
                 self.tableView.reloadSections(IndexSet(integer: 0), with: .top)
             case .failure(let error):
                 self.errorLabel.text=error.localizedDescription

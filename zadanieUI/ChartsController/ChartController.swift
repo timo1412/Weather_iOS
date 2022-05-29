@@ -15,41 +15,112 @@ class ChartController: UIViewController{
     @IBOutlet weak var bottomView: UIView!
     
     var location: CurrentLocation?
-    var chartsData = [CurrentWeather]()
-    var doubleArray = [Double]()
+    var dataChart = [Current]()
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.naplnPoleDouble()
-//        print(self.doubleArray)
         
-        LocationManager.shered.getLocation(completion: LocationManager.shered.completion)
-//        print(chartsData)
-        let firstChart = myLineChart(data: doubleArray)
-        topView.addSubview(firstChart.lineChartView)
-        firstChart.setData1()
-        firstChart.lineChartView.center(in: topView)
-        firstChart.lineChartView.width(to: topView)
-        firstChart.lineChartView.height(250)
-//
-//        let seccondCharts = myLineChart()
-//        bottomView.addSubview(seccondCharts.lineChartView)
-//        seccondCharts.setData1()
-//        seccondCharts.lineChartView.center(in: bottomView)
-//        seccondCharts.lineChartView.width(to: bottomView)
-//        seccondCharts.lineChartView.height(250)
+       
+        LocationManager.shered.onAuthorizationChange { auhorize in
+            if auhorize {
+                self.updateLocation()
+            }
+        }
+        
+        if LocationManager.shered.denied {
+            print("Denied permission")
+        } else {
+            updateLocation()
+        }
+        
         
     }
     
-    func naplnPoleDouble() {
-        for i in 0...10 {
-            doubleArray.append(5.5)
+    func drawLineChart(data: [ChartDataEntry] , poradie:Int) {
+        if poradie == 1 {
+            let firstChart = myLineChart(data: data)
+            topView.addSubview(firstChart.lineChartView)
+    //        firstChart.naplnGrafDatami()
+            firstChart.setData1()
+            firstChart.lineChartView.center(in: topView)
+            firstChart.lineChartView.width(to: topView)
+            firstChart.lineChartView.height(250)
+    //        firstChart.naplnGrafDatami()
+        } else {
+            let seccondCharts = myLineChart(data: data)
+            bottomView.addSubview(seccondCharts.lineChartView)
+    //        seccondCharts.naplnGrafDatami()
+            seccondCharts.setData1()
+            seccondCharts.lineChartView.center(in: bottomView)
+            seccondCharts.lineChartView.width(to: bottomView)
+            seccondCharts.lineChartView.height(250)
+    //        seccondCharts.naplnGrafDatami()
+        }
+    }
+        
+}
+
+//MARK: Priprava dat pre grafy 
+extension ChartController {
+    func pripravTeplotuPreGraf(data:HourlyResponse)->[ChartDataEntry] {
+        var tempChartData = [ChartDataEntry]()
+        
+        for i in 0...data.hourly.count-1 {
+            tempChartData.append(ChartDataEntry(x:(1.0 + Double(i)) , y: data.hourly[i].temperature))
+        }
+//        print("===================CHART DATA=========================")
+//        print(chartData)
+        return tempChartData
+    }
+    
+    func pripravDazdPreGraf(data:HourlyResponse)->[ChartDataEntry] {
+        var rainChartData = [ChartDataEntry]()
+        
+        for i in 0...data.hourly.count-1 {
+            rainChartData.append(ChartDataEntry(x: (1.0 + Double(i)), y: data.hourly[i].precipitation ?? 0))
+        }
+        
+        return rainChartData
+    }
+}
+//MARK: Request & Location
+extension ChartController {
+    @objc func loadData() {
+        guard let location = location else{
+            return
+        }
+        
+        RequestManager.shered.getHourlyWeather(for: location.coordinates) { response in
+            switch response {
+            case .success(let weatherData):
+                print("Succes")
+                let tempData = self.pripravTeplotuPreGraf(data: weatherData)
+                let rainData = self.pripravDazdPreGraf(data: weatherData)
+                self.drawLineChart(data: tempData,poradie: 1)
+                self.drawLineChart(data: rainData,poradie: 2)
+                
+//                print(weatherData)
+            case .failure(let error):
+                print(error)
+            }
         }
     }
     
     
-
+    func updateLocation() {
+        LocationManager.shered.getLocation { [weak self] location, error in
+            guard let self = self else { return }
+            
+            if let error = error{
+            
+            } else {
+                if let location = location {
+                    self.location = location
+                    self.loadData()
+                }
+            }
+        }
+    }
 }
-
 
 
 

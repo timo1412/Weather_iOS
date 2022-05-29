@@ -22,10 +22,11 @@ class WeatherCustomeTableViewCell: UITableViewCell {
 
 extension WeatherCustomeTableViewCell {
     
-    func setupCell (with hour : CurrentWeather){
+    func setupCell (with hour : Current){
         dayLabel.text = DateFormatter.timeDateFormarttet.string(from: hour.date)
         weatherIcon.image = hour.weather.first?.image?.withRenderingMode(.alwaysOriginal)
-        rainLabel.text = hour.precipitation
-        tempLabel.text = hour.temperatureWithCelsius
+        rainLabel.text = hour.precipitationString
+        tempLabel.text = hour.temperatureInCelzius
+        
     }
 }
