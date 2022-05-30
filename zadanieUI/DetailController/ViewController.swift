@@ -8,6 +8,7 @@
 import UIKit
 import CoreLocation
 import MapKit
+import SideMenu
 
 struct WeatherCell{
     let day : String
@@ -38,6 +39,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var feelTemptLabel: UILabel!
     
 //    MARK: VARIABLES
+    var favMenu: SideMenuNavigationController?
     var place: Place?
     var refreshControl = UIRefreshControl()
     var hours = [Current]()
@@ -50,6 +52,11 @@ class ViewController: UIViewController {
     var favouriteLocation = [CurrentLocation]()
     
 //    MARK: BUTTON
+    
+    @IBAction func favouriteButton(_ sender: Any) {
+        present(favMenu!, animated: true)
+    }
+    
     @IBAction func search(_ sender: Any) {
         let storyboard = UIStoryboard(name: "SearchViewControler", bundle: nil)
         if let navigationControloer = storyboard.instantiateInitialViewController() {
@@ -58,40 +65,30 @@ class ViewController: UIViewController {
     }
     
     @IBAction func saveFavButton(_ sender: Any) {
-//        print("ukladam favourite")
-//        print("Mesto")
-//        print(location?.city)
-//        print("coordinaty")
-//        print(location?.coordinates)
         savingFavLocation(location: location!)
     }
 
-    
-    
-    
-    
-    
     //    MARK: LIFECYCLE
     override func viewDidLoad() {
-        
         super.viewDidLoad()
         activityIndicator.startAnimating()
         setupTableView()
         updateLocation()
-//        LocationManager.shered.onAuthorizationChange { authorized in
-//            if authorized {
-//                self.updateLocation()
-//            }
-//        }
-//
+        LocationManager.shered.onAuthorizationChange { authorized in
+            if authorized {
+                self.updateLocation()
+            }
+        }
+
         if LocationManager.shered.denied {
             self.presentAlert()
         } else {
             updateLocation()
         }
-        
-//        let firstChart = myLineChart()
+
+
     }
+    
 }
 
 //MARK: ACTION
@@ -119,9 +116,16 @@ private extension ViewController {
     func setupView(with currentWeather: HourlyResponse) {
         temptLabel.text = currentWeather.current.temperatureInCelzius
         feelTemptLabel.text = currentWeather.current.feelsLikeString
-        descWeatherLabel.text = currentWeather.current.weather.description
+        descWeatherLabel.text = currentWeather.current.weather[0].description
         print(currentWeather.current.weather.description)
         dateLabel.text = DateFormatter.mediumDateFormartter.string(from: currentWeather.current.date)
+    }
+    
+    func setupFavouriteMenu() {
+        favMenu = SideMenuNavigationController(rootViewController: FavouriteSideMenu())
+        favMenu?.leftSide = true
+        SideMenuManager.default.leftMenuNavigationController = favMenu
+        SideMenuManager.default.addPanGestureToPresent(toView: self.view)
     }
     
     func presentAlert() {
@@ -160,6 +164,7 @@ private extension ViewController {
             refreshControl.endRefreshing()
             activityIndicator.stopAnimating()
             setupView(with: weatherData)
+            setupFavouriteMenu()
             hours = weatherData.hourly
             tableView.isHidden = false
             emptyView.isHidden = true
@@ -187,7 +192,7 @@ private extension ViewController {
 
             switch response {
             case .success(let weatherData):
-                print(response)
+//                print(response)
                 self.state = .success(weatherData)
             case .failure(let error):
                 print(response)
@@ -217,8 +222,7 @@ private extension ViewController {
 //MARK: User default
 extension ViewController {
     func savingFavLocation(location: CurrentLocation) {
-//        UserDefaultManager.shered.defaults.set(location, forKey: location.city)
-        UserDefaultManager.shered.defaults.setValue(location, forKey: location.city)
+        UserDefaultManager.shered.defaults.setValue(location, forKey: "String")
     }
 }
 

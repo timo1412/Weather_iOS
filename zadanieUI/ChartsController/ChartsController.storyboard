@@ -23,30 +23,43 @@
                                         <rect key="frame" x="0.0" y="0.0" width="414" height="1200"/>
                                         <subviews>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="zLQ-ir-2QT" userLabel="TopView">
-                                                <rect key="frame" x="8" y="8" width="398" height="300"/>
+                                                <rect key="frame" x="8" y="80" width="398" height="300"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="UfU-Rz-Rb7"/>
                                                 </constraints>
                                             </view>
                                             <view contentMode="scaleToFill" translatesAutoresizingMaskIntoConstraints="NO" id="fgG-ui-ZDU" userLabel="BottomView">
-                                                <rect key="frame" x="8" y="348" width="398" height="300"/>
+                                                <rect key="frame" x="8" y="435" width="398" height="300"/>
                                                 <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                                 <constraints>
                                                     <constraint firstAttribute="height" constant="300" id="2Jx-Ji-pac"/>
                                                 </constraints>
                                             </view>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chart for rain precipitation" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="Rfd-4Q-0Gb">
+                                                <rect key="frame" x="8" y="397" width="277" height="30"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
+                                            <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" fixedFrame="YES" text="Chart for temperature" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="LeP-BU-fqc">
+                                                <rect key="frame" x="8" y="36" width="214" height="36"/>
+                                                <autoresizingMask key="autoresizingMask" flexibleMaxX="YES" flexibleMaxY="YES"/>
+                                                <fontDescription key="fontDescription" type="boldSystem" pointSize="20"/>
+                                                <nil key="textColor"/>
+                                                <nil key="highlightedColor"/>
+                                            </label>
                                         </subviews>
                                         <color key="backgroundColor" systemColor="separatorColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="zLQ-ir-2QT" secondAttribute="trailing" constant="8" id="26p-My-Eau"/>
                                             <constraint firstAttribute="trailing" secondItem="fgG-ui-ZDU" secondAttribute="trailing" constant="8" id="B0o-Vt-7hA"/>
-                                            <constraint firstItem="zLQ-ir-2QT" firstAttribute="top" secondItem="475-hL-IBs" secondAttribute="top" constant="8" id="Ict-I6-WD2"/>
                                             <constraint firstItem="zLQ-ir-2QT" firstAttribute="leading" secondItem="475-hL-IBs" secondAttribute="leading" constant="8" id="NFt-OS-9Kp"/>
                                             <constraint firstItem="fgG-ui-ZDU" firstAttribute="leading" secondItem="475-hL-IBs" secondAttribute="leading" constant="8" id="W7E-Wr-gSf"/>
-                                            <constraint firstItem="fgG-ui-ZDU" firstAttribute="top" secondItem="zLQ-ir-2QT" secondAttribute="bottom" constant="40" id="aJr-BJ-C6h"/>
+                                            <constraint firstItem="fgG-ui-ZDU" firstAttribute="top" secondItem="zLQ-ir-2QT" secondAttribute="bottom" constant="55" id="aJr-BJ-C6h"/>
                                             <constraint firstAttribute="height" constant="1200" id="kIS-Az-R3g"/>
-                                            <constraint firstItem="zLQ-ir-2QT" firstAttribute="top" secondItem="475-hL-IBs" secondAttribute="top" constant="8" id="uRS-Jy-ka5"/>
+                                            <constraint firstItem="zLQ-ir-2QT" firstAttribute="top" secondItem="475-hL-IBs" secondAttribute="top" constant="80" id="uRS-Jy-ka5"/>
                                         </constraints>
                                     </view>
                                 </subviews>
@@ -73,6 +86,8 @@
                     <size key="freeformSize" width="414" height="1200"/>
                     <connections>
                         <outlet property="bottomView" destination="fgG-ui-ZDU" id="b0j-QH-kQe"/>
+                        <outlet property="rainChartLabel" destination="Rfd-4Q-0Gb" id="gxF-Kw-Ia1"/>
+                        <outlet property="tempCharLabel" destination="LeP-BU-fqc" id="xnt-FJ-Egd"/>
                         <outlet property="topView" destination="zLQ-ir-2QT" id="xPF-yM-fKF"/>
                     </connections>
                 </viewController>

@@ -11,6 +11,8 @@ import Charts
 
 
 class ChartController: UIViewController{
+    @IBOutlet weak var tempCharLabel: UILabel!
+    @IBOutlet weak var rainChartLabel: UILabel!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var bottomView: UIView!
     
@@ -31,8 +33,15 @@ class ChartController: UIViewController{
         } else {
             updateLocation()
         }
-        
-        
+    }
+    
+    func setupChartView(with weatherData: HourlyResponse) {
+        rainChartLabel.text = "Chart for rain precipitation"
+        tempCharLabel.text = "Chart for temperature"
+        let tempData = self.pripravTeplotuPreGraf(data: weatherData)
+        let rainData = self.pripravDazdPreGraf(data: weatherData)
+        self.drawLineChart(data: tempData,poradie: 1)
+        self.drawLineChart(data: rainData,poradie: 2)
     }
     
     func drawLineChart(data: [ChartDataEntry] , poradie:Int) {
@@ -56,7 +65,6 @@ class ChartController: UIViewController{
     //        seccondCharts.naplnGrafDatami()
         }
     }
-        
 }
 
 //MARK: Priprava dat pre grafy 
@@ -93,12 +101,7 @@ extension ChartController {
             switch response {
             case .success(let weatherData):
                 print("Succes")
-                let tempData = self.pripravTeplotuPreGraf(data: weatherData)
-                let rainData = self.pripravDazdPreGraf(data: weatherData)
-                self.drawLineChart(data: tempData,poradie: 1)
-                self.drawLineChart(data: rainData,poradie: 2)
-                
-//                print(weatherData)
+                self.setupChartView(with: weatherData)
             case .failure(let error):
                 print(error)
             }

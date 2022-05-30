@@ -28,27 +28,48 @@
                                 <preferredSymbolConfiguration key="preferredSymbolConfiguration" configurationType="pointSize" pointSize="38" scale="small" weight="bold"/>
                             </imageView>
                             <label opaque="NO" userInteractionEnabled="NO" contentMode="left" horizontalHuggingPriority="251" verticalHuggingPriority="251" text="addressLabel" textAlignment="natural" lineBreakMode="tailTruncation" baselineAdjustment="alignBaselines" adjustsFontSizeToFit="NO" translatesAutoresizingMaskIntoConstraints="NO" id="uGf-Xl-Fa6">
-                                <rect key="frame" x="8" y="771" width="398" height="42"/>
+                                <rect key="frame" x="8" y="771" width="250" height="42"/>
                                 <color key="backgroundColor" systemColor="placeholderTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="height" constant="42" id="aVB-Oc-p31"/>
+                                </constraints>
                                 <fontDescription key="fontDescription" type="system" pointSize="17"/>
                                 <nil key="textColor"/>
                                 <nil key="highlightedColor"/>
                             </label>
+                            <button opaque="NO" contentMode="scaleToFill" contentHorizontalAlignment="center" contentVerticalAlignment="center" buttonType="system" lineBreakMode="middleTruncation" translatesAutoresizingMaskIntoConstraints="NO" id="zZb-qo-dkR">
+                                <rect key="frame" x="266" y="771" width="137" height="42"/>
+                                <color key="backgroundColor" systemColor="placeholderTextColor"/>
+                                <constraints>
+                                    <constraint firstAttribute="width" constant="137" id="L8u-xz-7Og"/>
+                                    <constraint firstAttribute="height" constant="42" id="Msh-zT-Auh"/>
+                                    <constraint firstAttribute="height" relation="greaterThanOrEqual" constant="42" id="WxK-30-Zig"/>
+                                </constraints>
+                                <color key="tintColor" systemColor="labelColor"/>
+                                <state key="normal" title="Button"/>
+                                <buttonConfiguration key="configuration" style="plain" image="magnifyingglass" catalog="system" title="Show weather"/>
+                                <connections>
+                                    <action selector="showCustomeWeather:" destination="Y6W-OH-hqX" eventType="touchUpInside" id="5cG-Pn-TB6"/>
+                                </connections>
+                            </button>
                         </subviews>
                         <viewLayoutGuide key="safeArea" id="vDu-zF-Fre"/>
                         <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                         <constraints>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="bottom" secondItem="sRD-Vs-zu1" secondAttribute="bottom" constant="50" id="2zF-sQ-ei6"/>
-                            <constraint firstItem="uGf-Xl-Fa6" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="7Fv-J9-M48"/>
-                            <constraint firstItem="uGf-Xl-Fa6" firstAttribute="top" secondItem="sRD-Vs-zu1" secondAttribute="bottom" constant="8" id="7Hx-Hc-VhW"/>
                             <constraint firstItem="9eM-A0-ry7" firstAttribute="centerX" secondItem="sRD-Vs-zu1" secondAttribute="centerX" id="8vy-AK-jsQ"/>
-                            <constraint firstItem="uGf-Xl-Fa6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="EZu-my-CzT"/>
+                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="zZb-qo-dkR" secondAttribute="trailing" constant="11" id="Iob-KU-vU0"/>
                             <constraint firstItem="9eM-A0-ry7" firstAttribute="centerX" secondItem="sRD-Vs-zu1" secondAttribute="centerX" id="KTE-G2-Jzg"/>
+                            <constraint firstItem="uGf-Xl-Fa6" firstAttribute="top" secondItem="zZb-qo-dkR" secondAttribute="top" id="LXt-Ue-kyT"/>
+                            <constraint firstItem="zZb-qo-dkR" firstAttribute="bottom" secondItem="vDu-zF-Fre" secondAttribute="bottom" id="Ose-kx-avX"/>
                             <constraint firstItem="sRD-Vs-zu1" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" id="Y5o-HX-x2n"/>
-                            <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="uGf-Xl-Fa6" secondAttribute="trailing" constant="8" id="a16-kc-ig6"/>
+                            <constraint firstItem="zZb-qo-dkR" firstAttribute="leading" secondItem="uGf-Xl-Fa6" secondAttribute="trailing" constant="8" id="b13-Kc-rW0"/>
+                            <constraint firstItem="zZb-qo-dkR" firstAttribute="leading" secondItem="uGf-Xl-Fa6" secondAttribute="trailing" constant="8" symbolic="YES" id="bdz-ZA-PAp"/>
                             <constraint firstItem="sRD-Vs-zu1" firstAttribute="top" secondItem="vDu-zF-Fre" secondAttribute="top" id="cRJ-hH-2Gl"/>
                             <constraint firstItem="9eM-A0-ry7" firstAttribute="centerY" secondItem="sRD-Vs-zu1" secondAttribute="centerY" id="eeU-6o-fOi"/>
+                            <constraint firstItem="zZb-qo-dkR" firstAttribute="top" secondItem="sRD-Vs-zu1" secondAttribute="bottom" constant="8" symbolic="YES" id="k8t-LC-n81"/>
                             <constraint firstItem="vDu-zF-Fre" firstAttribute="trailing" secondItem="sRD-Vs-zu1" secondAttribute="trailing" id="lVr-eS-ppC"/>
+                            <constraint firstItem="uGf-Xl-Fa6" firstAttribute="leading" secondItem="vDu-zF-Fre" secondAttribute="leading" constant="8" id="yma-2Q-qoX"/>
                         </constraints>
                     </view>
                     <tabBarItem key="tabBarItem" title="Map" image="map" catalog="system" id="bZ5-xb-06S"/>
@@ -64,8 +85,12 @@
         </scene>
     </scenes>
     <resources>
+        <image name="magnifyingglass" catalog="system" width="128" height="115"/>
         <image name="map" catalog="system" width="128" height="110"/>
         <image name="pin" catalog="system" width="119" height="128"/>
+        <systemColor name="labelColor">
+            <color white="0.0" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
+        </systemColor>
         <systemColor name="placeholderTextColor">
             <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.29999999999999999" colorSpace="custom" customColorSpace="sRGB"/>
         </systemColor>

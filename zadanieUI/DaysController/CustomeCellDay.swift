@@ -13,6 +13,9 @@ class CustomeCellDay: UITableViewCell {
         String(describing: CustomeCellDay.self)
     }
     
+    @IBOutlet weak var feelsTempLabel: UILabel!
+    @IBOutlet weak var descLabel: UILabel!
+    @IBOutlet weak var dayIcon: UIImageView!
     @IBOutlet weak var tempLabel: UILabel!
     @IBOutlet weak var rainLabel: UILabel!
     @IBOutlet weak var dayLabel: UILabel!
@@ -21,6 +24,9 @@ class CustomeCellDay: UITableViewCell {
         dayLabel.text = DateFormatter.dayDateFormartter.string(from: weather.date)
         tempLabel.text = weather.temperatureString
         rainLabel.text = weather.precipitationStrin
+        dayIcon.image = weather.weather.first?.image?.withRenderingMode(.alwaysOriginal)
+        descLabel.text = weather.weather[0].weatherDescription
+        feelsTempLabel.text = weather.feelsLikeStrin
         
     }
     

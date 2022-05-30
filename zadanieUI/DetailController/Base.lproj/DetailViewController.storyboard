@@ -159,6 +159,11 @@
                     </view>
                     <tabBarItem key="tabBarItem" title="Location" image="location.fill" catalog="system" id="TC8-ku-NZW"/>
                     <navigationItem key="navigationItem" title="Weather" id="Ghb-Wq-8LU">
+                        <barButtonItem key="leftBarButtonItem" title="Item" image="star.fill" catalog="system" id="t6z-Z7-Jsl" userLabel="FavouriteButton">
+                            <connections>
+                                <action selector="favouriteButton:" destination="BYZ-38-t0r" id="vUg-a8-ImR"/>
+                            </connections>
+                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="gJG-Vs-naB">
                             <color key="tintColor" systemColor="tintColor"/>
                             <connections>

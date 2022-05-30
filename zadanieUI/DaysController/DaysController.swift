@@ -13,12 +13,14 @@ class DaysController : UIViewController{
     @IBAction func reload(_ sender: Any) {
         loadData()
     }
+    
+//    MARK: OUTLETS
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
     @IBOutlet weak var tableView: UITableView!
     
-   
+//   MARK: VARIABLES
     var location : CurrentLocation?
     var refreshControl = UIRefreshControl()
     var Days = [Daily]()
@@ -32,7 +34,6 @@ class DaysController : UIViewController{
                 self.updateLocation()
             }
         }
-        
         if LocationManager.shered.denied {
             presentAlert()
         } else {
@@ -41,6 +42,7 @@ class DaysController : UIViewController{
     }
 }
 
+//MARK: SETUP TABLE-CELLS
 extension DaysController : UITableViewDataSource {
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return Days.count
@@ -50,7 +52,11 @@ extension DaysController : UITableViewDataSource {
         guard let weatheDayCell = tableView.dequeueReusableCell(withIdentifier: CustomeCellDay.classString, for: indexPath) as? CustomeCellDay else {
             return UITableViewCell()
         }
+        weatheDayCell.backgroundColor = .link
         weatheDayCell.setupTable(with: Days[indexPath.row])
+//        if (indexPath.row % 2) == 0 {
+//            weatheDayCell.backgroundColor = .darkGray
+//        }
         
         return weatheDayCell
     }
@@ -67,14 +73,14 @@ private extension DaysController {
         tableView.isHidden = false
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
-        
+    
         tableView.dataSource = self
         tableView.delegate = self
         tableView.register(UINib(nibName: CustomeCellDay.self.classString, bundle: nil), forCellReuseIdentifier:CustomeCellDay.self.classString)
     }
 }
 
-
+//MARK: LOCATION & DATA LOADING
 extension DaysController {
     @objc func loadData() {
         guard let location = location else{

@@ -12,7 +12,7 @@ import TinyConstraints
 class myLineChart {
     
     var yValues = [ChartDataEntry]()
-
+    var pomString = String()
     init(data: [ChartDataEntry]) {
         yValues = data
     }
@@ -44,7 +44,9 @@ class myLineChart {
 //        xAxis.valueFormatter = self.lineChartView.xAxis.valueFormatter
         
         chartView.animate(xAxisDuration: 2.5)
-
+//        xAxis.valueFormatter?.stringForValue(5.9, axis: xAxis)
+        
+        
         return chartView
     }()
         
