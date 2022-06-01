@@ -73,7 +73,7 @@ class ViewController: UIViewController {
         super.viewDidLoad()
         activityIndicator.startAnimating()
         setupTableView()
-        updateLocation()
+//        updateLocation()
         LocationManager.shered.onAuthorizationChange { authorized in
             if authorized {
                 self.updateLocation()

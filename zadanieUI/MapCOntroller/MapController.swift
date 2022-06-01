@@ -32,8 +32,8 @@ class MapController: UIViewController {
     func presentDetailCustomeWeather() {
         print(myPlacemarks?.location?.coordinate ?? "")
         print(myPlacemarks?.locality)
-        self.place.city = (myPlacemarks?.locality)!
-        self.place.country = (myPlacemarks?.country)!
+//        self.place.city = (myPlacemarks?.locality)!
+//        self.place.country = (myPlacemarks?.country)!
         self.presentCustomDetailWeather(with: self.place)
     }
     

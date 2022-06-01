@@ -36,8 +36,8 @@ class SearchManager : NSObject {
 }
 
 struct Place {
-    var city : String
-    var country : String
+    let city : String
+    let country : String
 }
 
 //z completer result dostaneme ako objekty vyhladane miesta , place.title vypisuje ako string Nazov mesta a štátu okresy kraje ATD.

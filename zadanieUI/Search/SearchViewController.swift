@@ -66,8 +66,6 @@ extension SearchViewController : UITableViewDelegate {
     func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
         let place = places [indexPath.row]
         presentWeatherDetail(with: place)
-//        print("MESTO SEARCH CONTROLLER=========================================")
-//        print(place.city)
     }
     
     func presentWeatherDetail(with place: Place){
@@ -77,8 +75,5 @@ extension SearchViewController : UITableViewDelegate {
             navigationController?.pushViewController(weatherViewControloer, animated: true)
         }
     }
-
-
-
 }
 
