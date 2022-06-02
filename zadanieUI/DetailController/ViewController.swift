@@ -11,9 +11,8 @@ import MapKit
 import SideMenu
 
 struct savingFavouriteLocation : Codable {
+    var country :String
     var city :String
-    var lon :CLLocationDegrees
-    var lat :CLLocationDegrees
 }
 
 struct WeatherCell{
@@ -243,30 +242,37 @@ extension ViewController {
     func savingFavLocation(location: CurrentLocation) {
 //        print("ukladanie=======================")
         var savingLocation = savingFavouriteLocation(
-            city: location.city,
-            lon: location.coordinates.longitude,
-            lat: location.coordinates.latitude)
-        arrayOfFavouriteLocation = 
+            country: place?.country ?? "",
+            city: place?.city ?? "")
+        arrayOfFavouriteLocation = self.citajPole(key: "FavouriteLocationTest2")
         arrayOfFavouriteLocation.append(savingLocation)
 //        print("=============================")
 //        print(arrayOfFavouriteLocation)
         zapisPole(data: arrayOfFavouriteLocation)
-
+    }
+    
+    func citajPole(key: String) -> [savingFavouriteLocation]{
+        if let data = UserDefaults.standard.data(forKey: key) {
+            do{
+                let decoder = JSONDecoder()
+                let notes = try decoder.decode([savingFavouriteLocation].self, from: data)
+                return notes
+            } catch {
+                print("Unable to decode Notes \(error)")
+            }
+        }
+        return []
     }
     
     func zapisPole(data : [savingFavouriteLocation]) {
         do{
             let encoder = JSONEncoder()
             let data = try encoder.encode(data)
-            UserDefaults.standard.set(data , forKey: "FavouriteLocationTest")
+            UserDefaults.standard.set(data , forKey: "FavouriteLocationTest2")
         } catch {
             print("Unable to Encode Array of Notes")
         }
     }
-    
-    
-    
-    
 }
 
 //MARK: TABLE VIERW DATA SOURCE

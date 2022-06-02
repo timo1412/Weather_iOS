@@ -17,7 +17,7 @@ class FavouriteSideMenu : UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        favLocation = self.citajPole(key: "FavouriteLocationTest")
+        favLocation = self.citajPole(key: "FavouriteLocationTest2")
         tableView.backgroundColor = darkColor
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
@@ -36,9 +36,22 @@ class FavouriteSideMenu : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
+        
         print(favLocation[indexPath.row].city)
-        print(favLocation[indexPath.row].lat)
+        print(favLocation[indexPath.row].country)
+        
+        let place = Place(city: favLocation[indexPath.row].city, country: favLocation[indexPath.row].country)
+        self.presentWeatherDetail(with: place)
     }
+    
+    func presentWeatherDetail(with place: Place){
+        let storyboard = UIStoryboard(name: "DetailViewController", bundle: nil)
+        if let weatherViewControloer = storyboard.instantiateViewController(withIdentifier: "WeatherDetail") as? ViewController {
+            weatherViewControloer.place = place
+            navigationController?.pushViewController(weatherViewControloer, animated: true)
+        }
+    }
+
 }
 
 extension FavouriteSideMenu {
@@ -46,8 +59,8 @@ extension FavouriteSideMenu {
         if let data = UserDefaults.standard.data(forKey: key) {
             do{
                 let decoder = JSONDecoder()
-                let notes = try decoder.decode([savingFavouriteLocation].self, from: data)
-                return notes
+                let arrayFavourite = try decoder.decode([savingFavouriteLocation].self, from: data)
+                return arrayFavourite
             } catch {
                 print("Unable to decode Notes \(error)")
             }
