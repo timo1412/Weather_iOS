@@ -17,6 +17,7 @@ class myLineChart {
         yValues = data
     }
 
+    
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
         chartView.backgroundColor = .systemBlue
@@ -34,17 +35,18 @@ class myLineChart {
 //        fond pisma na osi
         xAxis.labelFont = .boldSystemFont(ofSize:10)
 //        pocet zobrazovanych hodnot na osi
-        xAxis.setLabelCount(18, force: false)
+        xAxis.setLabelCount(8, force: false)
 //        farba hodnot na osi x
         xAxis.labelTextColor = .white
 //        hrubka osi x
         xAxis.axisLineWidth = 3
 //        farba osi x
         xAxis.axisLineColor = .black
-//        xAxis.valueFormatter = self.lineChartView.xAxis.valueFormatter
+        
+        xAxis.valueFormatter = DateValueFormatter()
         
         chartView.animate(xAxisDuration: 2.5)
-//        xAxis.valueFormatter?.stringForValue(5.9, axis: xAxis)
+
         
         
         return chartView

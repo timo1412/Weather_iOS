@@ -36,15 +36,16 @@ class SearchManager : NSObject {
 }
 
 struct Place {
-    let city : String
-    let country : String
+    var city : String
+    var country : String
 }
 
 //z completer result dostaneme ako objekty vyhladane miesta , place.title vypisuje ako string Nazov mesta a štátu okresy kraje ATD.
 extension SearchManager: MKLocalSearchCompleterDelegate{
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
         
-        //        prechadza to čo nam vrati completer result pozrie sa či nie je prazdny ak nie je tak jeho componenty rozdely podla čiarky , a ak je počet komponentov väčší ako jeden tak z čoho vyplýva že to bude mesto zo štátom tak vytvori Place s mestom a daným štátom
+        //        prechadza to čo nam vrati completer result pozrie sa či nie je prazdny ak nie je tak jeho componenty rozdely podla čiarky , a ak je počet komponentov väčší ako jeden tak z toho vyplýva že to bude mesto zo štátom tak vytvori Place s mestom a daným štátom
+
         let places = completer.results
             .filter{ !$0.title.isEmpty }
             .map{$0.title.components(separatedBy: ",")}

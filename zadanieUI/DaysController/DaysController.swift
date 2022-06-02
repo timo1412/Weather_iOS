@@ -29,12 +29,12 @@ class DaysController : UIViewController{
         super.viewDidLoad()
         activityIndicator.startAnimating()
         
-        LocationManager.shered.onAuthorizationChange { auhorize in
+        LocationManager.shared.onAuthorizationChange { auhorize in
             if auhorize {
                 self.updateLocation()
             }
         }
-        if LocationManager.shered.denied {
+        if LocationManager.shared.denied {
             presentAlert()
         } else {
             updateLocation()
@@ -55,7 +55,7 @@ extension DaysController : UITableViewDataSource {
         weatheDayCell.backgroundColor = .link
         weatheDayCell.setupTable(with: Days[indexPath.row])
 //        if (indexPath.row % 2) == 0 {
-//            weatheDayCell.backgroundColor = .darkGray
+//            weatheDayCell.backgroundColor = .blue
 //        }
         
         return weatheDayCell
@@ -122,7 +122,7 @@ extension DaysController {
     }
     
     func updateLocation() {
-        LocationManager.shered.getLocation { [weak self] location, error in
+        LocationManager.shared.getLocation { [weak self] location, error in
             guard let self = self else { return }
             
             if let error = error{

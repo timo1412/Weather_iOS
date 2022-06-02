@@ -27,7 +27,5 @@ class CustomeCellDay: UITableViewCell {
         dayIcon.image = weather.weather.first?.image?.withRenderingMode(.alwaysOriginal)
         descLabel.text = weather.weather[0].weatherDescription
         feelsTempLabel.text = weather.feelsLikeStrin
-        
     }
-    
 }

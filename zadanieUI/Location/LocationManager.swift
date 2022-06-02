@@ -28,19 +28,32 @@ typealias CityCompletionHandler = ((CurrentLocation? , Error?) -> Void)
 typealias AuthorizationHandler = ((Bool) -> Void)
 
 class LocationManager : CLLocationManager{
-    static let shered  = LocationManager()
+    static let shared  = LocationManager()
     private var geoCoder = CLGeocoder()
     var previousLocation: CLLocation?
     weak var charLocation: LocationManagerDelegate?
     weak var userMapLocation: LocationManagerMapDelegate?
     var denied : Bool {
-        LocationManager.shered.authorizationStatus == .denied
+        LocationManager.shared.authorizationStatus == .denied
     }
     
     weak var cityDelegate: LocationManagerDelegate?
     
     var completion: CityCompletionHandler?
     var authorizationCompletion: AuthorizationHandler?
+    
+    func getPlaceLocation(where place : Place , completion: @escaping(CurrentLocation?, Error?) -> Void){
+        let addres = place.country + ", " + place.city
+        geoCoder.geocodeAddressString(addres) { placemarks, error in
+            guard let placemark = placemarks?.first, let location = placemark.location, error == nil else {
+                completion(nil,error)
+                return
+            }
+            
+            let coordinates = location.coordinate
+            completion(CurrentLocation(city: place.city, coordinates: coordinates),nil)
+        }
+    }
     
     func getLocation(completion: CityCompletionHandler?) {
         self.completion = completion

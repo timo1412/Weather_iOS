@@ -22,13 +22,13 @@ class ChartController: UIViewController{
         super.viewDidLoad()
         
        
-        LocationManager.shered.onAuthorizationChange { auhorize in
+        LocationManager.shared.onAuthorizationChange { auhorize in
             if auhorize {
                 self.updateLocation()
             }
         }
         
-        if LocationManager.shered.denied {
+        if LocationManager.shared.denied {
             print("Denied permission")
         } else {
             updateLocation()
@@ -72,8 +72,10 @@ extension ChartController {
     func pripravTeplotuPreGraf(data:HourlyResponse)->[ChartDataEntry] {
         var tempChartData = [ChartDataEntry]()
         
-        for i in 0...data.hourly.count-1 {
-            tempChartData.append(ChartDataEntry(x:(1.0 + Double(i)) , y: data.hourly[i].temperature))
+        data.hourly.forEach {
+            tempChartData.append(ChartDataEntry(
+                x: $0.date.timeIntervalSince1970,
+                y: $0.temperature))
         }
 //        print("===================CHART DATA=========================")
 //        print(chartData)
@@ -110,7 +112,7 @@ extension ChartController {
     
     
     func updateLocation() {
-        LocationManager.shered.getLocation { [weak self] location, error in
+        LocationManager.shared.getLocation { [weak self] location, error in
             guard let self = self else { return }
             
             if let error = error{

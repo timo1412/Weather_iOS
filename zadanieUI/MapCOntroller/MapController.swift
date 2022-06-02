@@ -25,13 +25,14 @@ class MapController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        LocationManager.shered.getLocation(completion: LocationManager.shered.completion)
-        LocationManager.shered.userMapLocation = self
+        LocationManager.shared.getLocation(completion: LocationManager.shared.completion)
+        LocationManager.shared.userMapLocation = self
     }
     
     func presentDetailCustomeWeather() {
-        print(myPlacemarks?.location?.coordinate ?? "")
-        print(myPlacemarks?.locality)
+
+        place.city = (myPlacemarks?.locality)!
+        place.country = (myPlacemarks?.country)!
 //        self.place.city = (myPlacemarks?.locality)!
 //        self.place.country = (myPlacemarks?.country)!
         self.presentCustomDetailWeather(with: self.place)
@@ -51,7 +52,7 @@ extension MapController: LocationManagerMapDelegate {
     func locationManager(_locationManager: LocationManager, didLoadMapLocation mapLocation: String) {
         print("region map controller")
         mapView.showsUserLocation = true
-        let region = MKCoordinateRegion.init(center: LocationManager.shered.location!.coordinate, latitudinalMeters: regionInMeter, longitudinalMeters: regionInMeter)
+        let region = MKCoordinateRegion.init(center: LocationManager.shared.location!.coordinate, latitudinalMeters: regionInMeter, longitudinalMeters: regionInMeter)
         mapView.setRegion(region, animated: true)
     }
 }
@@ -59,13 +60,13 @@ extension MapController: LocationManagerMapDelegate {
 extension MapController: MKMapViewDelegate {
     func mapView(_ mapView: MKMapView, regionDidChangeAnimated animated: Bool) {
         
-        let center = LocationManager.shered.getCenterLocation(for: mapView)
+        let center = LocationManager.shared.getCenterLocation(for: mapView)
         
-        guard let previousLocation = LocationManager.shered.previousLocation else { return }
+        guard let previousLocation = LocationManager.shared.previousLocation else { return }
         
         guard center.distance(from: previousLocation) > 10 else { return }
         
-        LocationManager.shered.previousLocation = center
+        LocationManager.shared.previousLocation = center
         
         geocoder.reverseGeocodeLocation(center) { [ weak self] placemarks, error in
             guard let self = self , error == nil , let placemark = placemarks?.first else{ return }

@@ -10,6 +10,12 @@ import CoreLocation
 import MapKit
 import SideMenu
 
+struct savingFavouriteLocation : Codable {
+    var city :String
+    var lon :CLLocationDegrees
+    var lat :CLLocationDegrees
+}
+
 struct WeatherCell{
     let day : String
     let temp:String
@@ -26,7 +32,6 @@ enum State{
 class ViewController: UIViewController {
 
     //    MARK: OUTLETS
-
     @IBOutlet weak var emptyView: UIView!
     @IBOutlet weak var errorLabel: UILabel!
     @IBOutlet weak var activityIndicator: UIActivityIndicatorView!
@@ -39,6 +44,7 @@ class ViewController: UIViewController {
     @IBOutlet weak var feelTemptLabel: UILabel!
     
 //    MARK: VARIABLES
+    var arrayOfFavouriteLocation = [savingFavouriteLocation]()
     var favMenu: SideMenuNavigationController?
     var place: Place?
     var refreshControl = UIRefreshControl()
@@ -71,22 +77,31 @@ class ViewController: UIViewController {
     //    MARK: LIFECYCLE
     override func viewDidLoad() {
         super.viewDidLoad()
-        activityIndicator.startAnimating()
-        setupTableView()
-//        updateLocation()
-        LocationManager.shered.onAuthorizationChange { authorized in
-            if authorized {
-                self.updateLocation()
+        
+        if place != nil {
+            setupTableView()
+            self.updateWithPlace(place: place!)
+            locationLabel.text = place?.city
+        }
+        else {
+            activityIndicator.startAnimating()
+            
+            setupTableView()
+            
+//            updateLocation()
+            locationLabel.text = place?.city
+            LocationManager.shared.onAuthorizationChange { authorized in
+                if authorized {
+                    self.updateLocation()
+                }
+            }
+
+            if LocationManager.shared.denied {
+                self.presentAlert()
+            } else {
+                updateLocation()
             }
         }
-
-        if LocationManager.shered.denied {
-            self.presentAlert()
-        } else {
-            updateLocation()
-        }
-
-
     }
     
 }
@@ -145,9 +160,6 @@ private extension ViewController {
         present(alertController, animated: true)
     }
     
-    func savingLocation(with: CLLocation) {
-        
-    }
     
     func reloadState() {
         switch state {
@@ -157,6 +169,7 @@ private extension ViewController {
             emptyView.isHidden = true
         case .error(let message):
             errorLabel.text = message
+            self.emptyView.isHidden = false
             refreshControl.endRefreshing()
             activityIndicator.stopAnimating()
             tableView.isHidden = true
@@ -164,11 +177,11 @@ private extension ViewController {
             refreshControl.endRefreshing()
             activityIndicator.stopAnimating()
             setupView(with: weatherData)
-            setupFavouriteMenu()
             hours = weatherData.hourly
+            tableView.reloadSections(IndexSet(integer: 0), with: .fade )
             tableView.isHidden = false
             emptyView.isHidden = true
-            tableView.reloadSections(IndexSet(integer: 0), with: .fade )
+            setupFavouriteMenu()
         }
     }
 }
@@ -183,9 +196,7 @@ private extension ViewController {
         guard let location = location else{
             return
         }
-        
         state = .loading
-        
         RequestManager.shered.getHourlyWeather(for: location.coordinates) { [weak self] response in
 //            keby som tento guard nemal tak kazdy jeden self mi zahuci že nie je option týmto zabezpečim že vzdy bude existovať
             guard let self = self else {return}
@@ -201,12 +212,21 @@ private extension ViewController {
             }
         }
 
-        self.locationLabel.text = location.city
-        
+//        self.locationLabel.text = location.city
     }
-    
+    func updateWithPlace(place: Place) {
+        LocationManager.shared.getPlaceLocation(where: place) { [weak self] location, error in
+            guard let self = self else { return }
+            if let error = error {
+                self.state = .error(error.localizedDescription)
+            } else {
+                self.location = location
+                self.loadData()
+            }
+        }
+    }
     func updateLocation() {
-        LocationManager.shered.getLocation{ [weak self] location , error in
+        LocationManager.shared.getLocation{ [weak self] location , error in
             guard let self = self else { return }
             
             if let error = error{
@@ -217,13 +237,36 @@ private extension ViewController {
             }
         }
     }
-    
 }
 //MARK: User default
 extension ViewController {
     func savingFavLocation(location: CurrentLocation) {
-        UserDefaultManager.shered.defaults.setValue(location, forKey: "String")
+//        print("ukladanie=======================")
+        var savingLocation = savingFavouriteLocation(
+            city: location.city,
+            lon: location.coordinates.longitude,
+            lat: location.coordinates.latitude)
+        arrayOfFavouriteLocation = 
+        arrayOfFavouriteLocation.append(savingLocation)
+//        print("=============================")
+//        print(arrayOfFavouriteLocation)
+        zapisPole(data: arrayOfFavouriteLocation)
+
     }
+    
+    func zapisPole(data : [savingFavouriteLocation]) {
+        do{
+            let encoder = JSONEncoder()
+            let data = try encoder.encode(data)
+            UserDefaults.standard.set(data , forKey: "FavouriteLocationTest")
+        } catch {
+            print("Unable to Encode Array of Notes")
+        }
+    }
+    
+    
+    
+    
 }
 
 //MARK: TABLE VIERW DATA SOURCE
