@@ -9,7 +9,7 @@ import UIKit
 import CoreLocation
 import MapKit
 import SideMenu
-
+//MARK: STRUCT
 struct savingFavouriteLocation : Codable {
     var country :String
     var city :String
@@ -21,7 +21,7 @@ struct WeatherCell{
     let rainPer: String
     
 }
-
+//MARK: ENUM
 enum State{
     case loading
     case error(String)
@@ -83,12 +83,11 @@ class ViewController: UIViewController {
             locationLabel.text = place?.city
         }
         else {
-            activityIndicator.startAnimating()
             
+            activityIndicator.startAnimating()
+            updateLocation()
             setupTableView()
             
-//            updateLocation()
-            locationLabel.text = place?.city
             LocationManager.shared.onAuthorizationChange { authorized in
                 if authorized {
                     self.updateLocation()
@@ -100,6 +99,7 @@ class ViewController: UIViewController {
             } else {
                 updateLocation()
             }
+            
         }
     }
     
@@ -117,21 +117,18 @@ private extension ViewController {
 //MARK: - SETUP
 private extension ViewController {
     func setupTableView() {
-//        registgrujem si cellu v detail view
         tableView.dataSource = self
-        tableView.register(UINib(nibName: WeatherCustomeTableViewCell.classString, bundle: nil ), forCellReuseIdentifier: WeatherCustomeTableViewCell.classString)
-        
-//        nadstavim si refresh controll
+        tableView.register(UINib(nibName: WeatherCustomeTableViewCell.classString, bundle: nil ),
+                           forCellReuseIdentifier: WeatherCustomeTableViewCell.classString)
         tableView.isHidden = true
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
     }
-//    nadstavenie hlavicky detail view
+
     func setupView(with currentWeather: HourlyResponse) {
         temptLabel.text = currentWeather.current.temperatureInCelzius
         feelTemptLabel.text = currentWeather.current.feelsLikeString
         descWeatherLabel.text = currentWeather.current.weather[0].description
-        print(currentWeather.current.weather.description)
         dateLabel.text = DateFormatter.mediumDateFormartter.string(from: currentWeather.current.date)
     }
     
@@ -143,7 +140,7 @@ private extension ViewController {
     }
     
     func presentAlert() {
-        let alertController = UIAlertController(title: "toto je title", message: "toto je message", preferredStyle: .alert)
+        let alertController = UIAlertController(title: "Something went wrong", message: "Please check settings", preferredStyle: .alert)
         
         let okAction = UIAlertAction(title: "OK", style:.cancel)
         let setingAction = UIAlertAction(title: "Setting", style: .default) { action  in
@@ -191,28 +188,24 @@ private extension ViewController {
 
 private extension ViewController {
     @objc func loadData() {
-//        testovanie ci mam lokaciu ked chcem data
         guard let location = location else{
             return
         }
         state = .loading
         RequestManager.shered.getHourlyWeather(for: location.coordinates) { [weak self] response in
-//            keby som tento guard nemal tak kazdy jeden self mi zahuci že nie je option týmto zabezpečim že vzdy bude existovať
             guard let self = self else {return}
 
             switch response {
             case .success(let weatherData):
-//                print(response)
                 self.state = .success(weatherData)
             case .failure(let error):
-                print(response)
                 self.state = .error(error.localizedDescription )
                 
             }
         }
-
-//        self.locationLabel.text = location.city
+        self.locationLabel.text = location.city
     }
+    
     func updateWithPlace(place: Place) {
         LocationManager.shared.getPlaceLocation(where: place) { [weak self] location, error in
             guard let self = self else { return }
@@ -240,20 +233,19 @@ private extension ViewController {
 //MARK: User default
 extension ViewController {
     func savingFavLocation(location: CurrentLocation) {
-//        print("ukladanie=======================")
-        var savingLocation = savingFavouriteLocation(
+        let savingLocation = savingFavouriteLocation(
             country: place?.country ?? "",
             city: place?.city ?? "")
-        arrayOfFavouriteLocation = self.citajPole(key: "FavouriteLocationTest2")
+        
+        arrayOfFavouriteLocation = self.citajPole(key: "FavouriteLocationTest4")
         arrayOfFavouriteLocation.append(savingLocation)
-//        print("=============================")
-//        print(arrayOfFavouriteLocation)
+
         zapisPole(data: arrayOfFavouriteLocation)
     }
     
-    func citajPole(key: String) -> [savingFavouriteLocation]{
+    func citajPole(key: String) -> [savingFavouriteLocation] {
         if let data = UserDefaults.standard.data(forKey: key) {
-            do{
+            do {
                 let decoder = JSONDecoder()
                 let notes = try decoder.decode([savingFavouriteLocation].self, from: data)
                 return notes
@@ -265,10 +257,10 @@ extension ViewController {
     }
     
     func zapisPole(data : [savingFavouriteLocation]) {
-        do{
+        do {
             let encoder = JSONEncoder()
             let data = try encoder.encode(data)
-            UserDefaults.standard.set(data , forKey: "FavouriteLocationTest2")
+            UserDefaults.standard.set(data , forKey: "FavouriteLocationTest4")
         } catch {
             print("Unable to Encode Array of Notes")
         }
@@ -277,29 +269,22 @@ extension ViewController {
 
 //MARK: TABLE VIERW DATA SOURCE
 extension ViewController : UITableViewDataSource {
-    //    POČET SEKCII V TABLE VIEW KED MAM POČET SEKCII 2 a v jednej sekcii mam 7 dni tak mi vráti 14 riadkov
-    //    func numberOfSections(in tableView: UITableView) -> Int {
-    //        return 2
-    //    }
-    //    FUNKCIA KTORÁ VRÁTI POČET RIADKOV V TABLE VIEW
+    
     func tableView(_ tableView: UITableView, numberOfRowsInSection section: Int) -> Int {
         return hours.count
-        //ZABEZPOECI ZOBRAZOVANIE IBA PRVÝCH 3 DNÍ
-        //        if section == 0 {
-        //            return 3
-        //        } else {
-        //            return weatherDays.count
-        //        }
+        
     }
-    //    FUNKCIA KTORÁ NAFORMÁTUJE JEDNOTLIVE CELLS AK MOJA weatherCell NIE JE JE AKO WeatherTableViewCell TAK VRÁTIM PRÁZDNU TABULKU
+    
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
         
-        guard let weatherDayCell = tableView.dequeueReusableCell(withIdentifier: WeatherCustomeTableViewCell.classString, for: indexPath) as? WeatherCustomeTableViewCell else {
+        guard let weatherDayCell = tableView.dequeueReusableCell(
+            withIdentifier: WeatherCustomeTableViewCell.classString,
+            for: indexPath) as? WeatherCustomeTableViewCell else {
+            
             return UITableViewCell()
         }
-        //        let weatherCell  = tableView.dequeueReusableCell(withIdentifier: "WeatherTableViewCell", for: indexPath) as! WeatherTableViewCell
-        //        let weatherDay = weatherDays[indexPath.row]
         weatherDayCell.setupCell(with: hours[indexPath.row])
+        
         return weatherDayCell
     }
 }

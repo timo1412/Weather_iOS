@@ -13,34 +13,33 @@ struct CurrentLocation {
     let city: String
     let coordinates: CLLocationCoordinate2D
 }
+//MARK: PROTOCOLS
 
-protocol LocationStreetManagerDelegate : NSObject {
-    func locationManager(_ locationManager: LocationManager, didLoadLocation mapLocation: String)
-}
 protocol LocationManagerMapDelegate : NSObject {
     func locationManager(_locationManager: LocationManager, didLoadMapLocation mapLocation: String)
 }
 protocol LocationManagerDelegate: NSObject  {
     func locationManager(_locationManager: LocationManager, didLoadCurrent location: CurrentLocation)
 }
-
+//MARK: TYPEALIAS
 typealias CityCompletionHandler = ((CurrentLocation? , Error?) -> Void)
 typealias AuthorizationHandler = ((Bool) -> Void)
 
-class LocationManager : CLLocationManager{
+class LocationManager : CLLocationManager {
+    
     static let shared  = LocationManager()
+    
+//    MARK: VARIABLES
     private var geoCoder = CLGeocoder()
-    var previousLocation: CLLocation?
+    weak var cityDelegate: LocationManagerDelegate?
     weak var charLocation: LocationManagerDelegate?
     weak var userMapLocation: LocationManagerMapDelegate?
+    var completion: CityCompletionHandler?
+    var authorizationCompletion: AuthorizationHandler?
+    var previousLocation: CLLocation?
     var denied : Bool {
         LocationManager.shared.authorizationStatus == .denied
     }
-    
-    weak var cityDelegate: LocationManagerDelegate?
-    
-    var completion: CityCompletionHandler?
-    var authorizationCompletion: AuthorizationHandler?
     
     func getPlaceLocation(where place : Place , completion: @escaping(CurrentLocation?, Error?) -> Void){
         let addres = place.country + ", " + place.city
@@ -78,13 +77,11 @@ class LocationManager : CLLocationManager{
 //MARK: LOCATION MANAGER DELEGATE
 extension LocationManager : CLLocationManagerDelegate{
     
-    
     func locationManager(_ manager: CLLocationManager, didUpdateLocations locations: [CLLocation]) {
-//        print(locations)
+
         guard let location = locations.last else{
             return
         }
-        print(location)
         previousLocation = location
         geoCoder.reverseGeocodeLocation(location) { [weak self] placemarks , error in
             guard let self = self else {return  }
@@ -104,7 +101,6 @@ extension LocationManager : CLLocationManagerDelegate{
   
     
     func locationManagerDidChangeAuthorization(_ manager: CLLocationManager) {
-//        print(manager.authorizationStatus)
         switch manager.authorizationStatus {
         case .denied:
             authorizationCompletion?(false)

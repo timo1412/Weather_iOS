@@ -51,7 +51,7 @@
                                                 <nil key="highlightedColor"/>
                                             </label>
                                         </subviews>
-                                        <color key="backgroundColor" systemColor="separatorColor"/>
+                                        <color key="backgroundColor" systemColor="systemBackgroundColor"/>
                                         <constraints>
                                             <constraint firstAttribute="trailing" secondItem="zLQ-ir-2QT" secondAttribute="trailing" constant="8" id="26p-My-Eau"/>
                                             <constraint firstAttribute="trailing" secondItem="fgG-ui-ZDU" secondAttribute="trailing" constant="8" id="B0o-Vt-7hA"/>
@@ -98,9 +98,6 @@
     </scenes>
     <resources>
         <image name="chart.xyaxis.line" catalog="system" width="128" height="101"/>
-        <systemColor name="separatorColor">
-            <color red="0.23529411764705882" green="0.23529411764705882" blue="0.2627450980392157" alpha="0.28999999999999998" colorSpace="custom" customColorSpace="sRGB"/>
-        </systemColor>
         <systemColor name="systemBackgroundColor">
             <color white="1" alpha="1" colorSpace="custom" customColorSpace="genericGamma22GrayColorSpace"/>
         </systemColor>

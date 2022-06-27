@@ -22,7 +22,7 @@ class SearchManager : NSObject {
         searchCompleter.delegate = self
         searchCompleter.resultTypes = .address
     }
-    //    nadstavenie searchCompletera typ vyhladavania aj to pomocou akých dat vyhladavame v tomto pripade query = string
+
     func getLocalSearchResult(from query : String, completion: @escaping LocalSearchCompletionHandler){
         self.searchCompletion = completion
         
@@ -40,11 +40,8 @@ struct Place {
     var country : String
 }
 
-//z completer result dostaneme ako objekty vyhladane miesta , place.title vypisuje ako string Nazov mesta a štátu okresy kraje ATD.
 extension SearchManager: MKLocalSearchCompleterDelegate{
     func completerDidUpdateResults(_ completer: MKLocalSearchCompleter) {
-        
-        //        prechadza to čo nam vrati completer result pozrie sa či nie je prazdny ak nie je tak jeho componenty rozdely podla čiarky , a ak je počet komponentov väčší ako jeden tak z toho vyplýva že to bude mesto zo štátom tak vytvori Place s mestom a daným štátom
 
         let places = completer.results
             .filter{ !$0.title.isEmpty }
@@ -52,7 +49,6 @@ extension SearchManager: MKLocalSearchCompleterDelegate{
             .filter{$0.count>1}
             .map{ Place( city : $0[0], country : $0[1]) }
         searchCompletion?(places)
-        print(places)
     }
 }
 

@@ -49,14 +49,14 @@ extension DaysController : UITableViewDataSource {
     }
     
     func tableView(_ tableView: UITableView, cellForRowAt indexPath: IndexPath) -> UITableViewCell {
-        guard let weatheDayCell = tableView.dequeueReusableCell(withIdentifier: CustomeCellDay.classString, for: indexPath) as? CustomeCellDay else {
+        
+        guard let weatheDayCell = tableView.dequeueReusableCell(
+            withIdentifier: CustomeCellDay.classString,
+            for: indexPath) as? CustomeCellDay else {
             return UITableViewCell()
         }
-        weatheDayCell.backgroundColor = .link
-        weatheDayCell.setupTable(with: Days[indexPath.row])
-//        if (indexPath.row % 2) == 0 {
-//            weatheDayCell.backgroundColor = .blue
-//        }
+        
+        weatheDayCell.setupCell(with: Days[indexPath.row])
         
         return weatheDayCell
     }
@@ -73,10 +73,10 @@ private extension DaysController {
         tableView.isHidden = false
         tableView.refreshControl = refreshControl
         refreshControl.addTarget(self, action: #selector(loadData), for: .valueChanged)
-    
         tableView.dataSource = self
         tableView.delegate = self
-        tableView.register(UINib(nibName: CustomeCellDay.self.classString, bundle: nil), forCellReuseIdentifier:CustomeCellDay.self.classString)
+        tableView.register(UINib(nibName: CustomeCellDay.self.classString,bundle: nil),
+                           forCellReuseIdentifier:CustomeCellDay.self.classString)
     }
 }
 
@@ -93,8 +93,6 @@ extension DaysController {
             self.activityIndicator.stopAnimating()
             switch response {
             case .success(let weatherData):
-                print("Succes")
-                print(weatherData)
                 self.Days = weatherData.daily
                 self.setupTableCells(weatherData: weatherData.self)
                 self.tableView.reloadSections(IndexSet(integer: 0), with: .top)
@@ -106,11 +104,11 @@ extension DaysController {
         }
     }
     func presentAlert() {
-        let alert = UIAlertController(title: "Title", message: "Message", preferredStyle: .alert)
+        let alert = UIAlertController(title: "Something went wrong", message: "Please check settings", preferredStyle: .alert)
         let okAction = UIAlertAction(title: "OK", style: .cancel) { action in
-            print("OK")
+            
         }
-        let settings = UIAlertAction(title: "OK", style: .default) { action in
+        let settings = UIAlertAction(title: "Settings", style: .default) { action in
             guard let settingsUrl = URL(string:UIApplication.openSettingsURLString) , UIApplication.shared.canOpenURL(settingsUrl)  else {
                 return
             }
@@ -125,8 +123,8 @@ extension DaysController {
         LocationManager.shared.getLocation { [weak self] location, error in
             guard let self = self else { return }
             
-            if let error = error{
-            
+            if let error = error {
+                print(error.localizedDescription)
             } else {
                 if let location = location {
                     self.location = location
@@ -135,9 +133,4 @@ extension DaysController {
             }
         }
     }
-
-
 }
-
-
-

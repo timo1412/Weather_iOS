@@ -10,21 +10,28 @@ import Charts
 import TinyConstraints
 
 class myLineChart {
+//    MARK: Variables
+    var valuesChart = [ChartDataEntry]()
+    var title = String()
+    var graphColor : NSUIColor
+    var fillGraphColor : NSUIColor
     
-    var yValues = [ChartDataEntry]()
-    var pomString = String()
-    init(data: [ChartDataEntry]) {
-        yValues = data
+//    MARK: Initialisation
+    init(data: [ChartDataEntry] , titleChart: String , colorForGraph: NSUIColor , colorForFillGraph: NSUIColor) {
+        valuesChart = data
+        title = titleChart
+        graphColor = colorForGraph
+        fillGraphColor = colorForFillGraph
     }
 
-    
+//    MARK: Setup LineChartView
     lazy var lineChartView: LineChartView = {
         let chartView = LineChartView()
-        chartView.backgroundColor = .systemBlue
+        chartView.backgroundColor = .darkGray
         chartView.rightAxis.enabled = false
         let yAxis = chartView.leftAxis
         yAxis.labelFont = .boldSystemFont(ofSize: 10)
-        yAxis.setLabelCount(6, force: false)
+        yAxis.setLabelCount(8, force: false)
         yAxis.labelTextColor = .white
         yAxis.axisLineColor = .black
         yAxis.axisLineWidth = 3
@@ -35,7 +42,7 @@ class myLineChart {
 //        fond pisma na osi
         xAxis.labelFont = .boldSystemFont(ofSize:10)
 //        pocet zobrazovanych hodnot na osi
-        xAxis.setLabelCount(8, force: false)
+        xAxis.setLabelCount(10, force: false)
 //        farba hodnot na osi x
         xAxis.labelTextColor = .white
 //        hrubka osi x
@@ -51,9 +58,9 @@ class myLineChart {
         
         return chartView
     }()
-        
+//    MARK: Format chart
     func setData1() {
-        let set1 = LineChartDataSet(entries: yValues, label: "Title charts")
+        let set1 = LineChartDataSet(entries: valuesChart, label: title)
 //        zaobli vrcholi grafu
         set1.mode = .cubicBezier
 //        nebude pri vrcholoch kreslit kruhy
@@ -61,29 +68,18 @@ class myLineChart {
 //        hrubka grafu
         set1.lineWidth = 3
 //        farba grafu
-        set1.setColor(.red)
+        set1.setColor(graphColor)
 //        vyfarbi plochu pod grafom
-        set1.fill = ColorFill(color: .white)
+        set1.fill = ColorFill(color: fillGraphColor)
         set1.fillAlpha = 0.8
         set1.drawFilledEnabled = true
 //        odstranenie horizontalnej ciary ktora sa pohybuje s kurzorom
         set1.drawHorizontalHighlightIndicatorEnabled = false
 //        zmeni farbu kurzorovej ciary
-        set1.highlightColor = .systemRed
+        set1.highlightColor = .magenta
         let data1 = LineChartData(dataSet: set1)
 //        pri vrcholoch nebude zobrazovat hodnoty
         data1.setDrawValues(false)
         lineChartView.data=data1
     }
-    
-    func naplnGrafDatami() {
-//        let yValues = [ChartDataEntry]
-        for i in 1...30 {
-            yValues.append(ChartDataEntry(x: Double(i)+1.4, y: Double(i)+0.89))
-        }
-    }
 }
-
-//extension myLineChart : IndexAxisValueFormatter {
-//
-//}

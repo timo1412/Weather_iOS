@@ -17,7 +17,7 @@ class FavouriteSideMenu : UITableViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        favLocation = self.citajPole(key: "FavouriteLocationTest2")
+        favLocation = self.citajPole(key: "FavouriteLocationTest4")
         tableView.backgroundColor = darkColor
         tableView.register(UITableViewCell.self, forCellReuseIdentifier: "cell")
     }
@@ -36,28 +36,16 @@ class FavouriteSideMenu : UITableViewController {
     }
     
     override func tableView(_ tableView: UITableView, didSelectRowAt indexPath: IndexPath) {
-        
-        print(favLocation[indexPath.row].city)
-        print(favLocation[indexPath.row].country)
-        
         let place = Place(city: favLocation[indexPath.row].city, country: favLocation[indexPath.row].country)
         self.presentWeatherDetail(with: place)
-    }
-    
-    func presentWeatherDetail(with place: Place){
-        let storyboard = UIStoryboard(name: "DetailViewController", bundle: nil)
-        if let weatherViewControloer = storyboard.instantiateViewController(withIdentifier: "WeatherDetail") as? ViewController {
-            weatherViewControloer.place = place
-            navigationController?.pushViewController(weatherViewControloer, animated: true)
-        }
     }
 
 }
 
 extension FavouriteSideMenu {
-    func citajPole(key: String) -> [savingFavouriteLocation]{
+    func citajPole(key: String) -> [savingFavouriteLocation] {
         if let data = UserDefaults.standard.data(forKey: key) {
-            do{
+            do {
                 let decoder = JSONDecoder()
                 let arrayFavourite = try decoder.decode([savingFavouriteLocation].self, from: data)
                 return arrayFavourite
@@ -66,6 +54,14 @@ extension FavouriteSideMenu {
             }
         }
         return []
+    }
+    
+    func presentWeatherDetail(with place: Place){
+        let storyboard = UIStoryboard(name: "DetailViewController", bundle: nil)
+        if let weatherViewControloer = storyboard.instantiateViewController(withIdentifier: "WeatherDetail") as? ViewController {
+            weatherViewControloer.place = place
+            navigationController?.pushViewController(weatherViewControloer, animated: true)
+        }
     }
 
 }

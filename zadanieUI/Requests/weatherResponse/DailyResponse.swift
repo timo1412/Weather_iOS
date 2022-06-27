@@ -26,7 +26,7 @@ struct Daily: Decodable {
     
     var feelsLikeStrin:String{"Feels temp \(Int(feelsLike.day))°C"}
     var temperatureString:String{"Temp \(Int(temperature.day))°C"}
-    var precipitationStrin: String{"Rain \(Int(precipitation))%"}
+    var precipitationStrin: String{"Rain \(Double(precipitation))%"}
     
     enum CodingKeys: String, CodingKey {
         case date = "dt"

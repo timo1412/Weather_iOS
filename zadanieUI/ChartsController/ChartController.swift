@@ -11,17 +11,18 @@ import Charts
 
 
 class ChartController: UIViewController{
+//    MARK: Outlets
     @IBOutlet weak var tempCharLabel: UILabel!
     @IBOutlet weak var rainChartLabel: UILabel!
     @IBOutlet weak var topView: UIView!
     @IBOutlet weak var bottomView: UIView!
-    
+//    MARK: Variables
     var location: CurrentLocation?
     var dataChart = [Current]()
+    
     override func viewDidLoad() {
         super.viewDidLoad()
         
-       
         LocationManager.shared.onAuthorizationChange { auhorize in
             if auhorize {
                 self.updateLocation()
@@ -46,23 +47,27 @@ class ChartController: UIViewController{
     
     func drawLineChart(data: [ChartDataEntry] , poradie:Int) {
         if poradie == 1 {
-            let firstChart = myLineChart(data: data)
+            let firstChart = myLineChart(data: data,
+                                         titleChart: "Temperature",
+                                         colorForGraph: .red,
+                                         colorForFillGraph: .clear)
+            
             topView.addSubview(firstChart.lineChartView)
-    //        firstChart.naplnGrafDatami()
             firstChart.setData1()
             firstChart.lineChartView.center(in: topView)
             firstChart.lineChartView.width(to: topView)
             firstChart.lineChartView.height(250)
-    //        firstChart.naplnGrafDatami()
         } else {
-            let seccondCharts = myLineChart(data: data)
+            let seccondCharts = myLineChart(data: data,
+                                            titleChart: "Rain precipitation",
+                                            colorForGraph: .blue,
+                                            colorForFillGraph: .systemBlue)
+            
             bottomView.addSubview(seccondCharts.lineChartView)
-    //        seccondCharts.naplnGrafDatami()
             seccondCharts.setData1()
             seccondCharts.lineChartView.center(in: bottomView)
             seccondCharts.lineChartView.width(to: bottomView)
             seccondCharts.lineChartView.height(250)
-    //        seccondCharts.naplnGrafDatami()
         }
     }
 }
@@ -77,16 +82,15 @@ extension ChartController {
                 x: $0.date.timeIntervalSince1970,
                 y: $0.temperature))
         }
-//        print("===================CHART DATA=========================")
-//        print(chartData)
         return tempChartData
     }
     
     func pripravDazdPreGraf(data:HourlyResponse)->[ChartDataEntry] {
         var rainChartData = [ChartDataEntry]()
         
-        for i in 0...data.hourly.count-1 {
-            rainChartData.append(ChartDataEntry(x: (1.0 + Double(i)), y: data.hourly[i].precipitation ?? 0))
+        data.hourly.forEach{
+            rainChartData.append(ChartDataEntry(x: $0.date.timeIntervalSince1970,
+                                                y: $0.precipitation ?? 0.0))
         }
         
         return rainChartData

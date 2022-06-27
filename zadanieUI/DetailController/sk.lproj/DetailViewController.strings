@@ -1,0 +1,39 @@
+
+/* Class = "UIButton"; configuration.title = "Refersh"; ObjectID = "5np-g3-K25"; */
+"5np-g3-K25.configuration.title" = "Refersh";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "5np-g3-K25"; */
+"5np-g3-K25.normalTitle" = "Button";
+
+/* Class = "UILabel"; text = "[feels_like]"; ObjectID = "7KT-Xb-eG8"; */
+"7KT-Xb-eG8.text" = "[feels_like]";
+
+/* Class = "UILabel"; text = "[location]"; ObjectID = "Bal-tf-PoI"; */
+"Bal-tf-PoI.text" = "[location]";
+
+/* Class = "UIButton"; configuration.title = "Favourites"; ObjectID = "DQk-2Q-cJ5"; */
+"DQk-2Q-cJ5.configuration.title" = "Favourites";
+
+/* Class = "UIButton"; normalTitle = "Button"; ObjectID = "DQk-2Q-cJ5"; */
+"DQk-2Q-cJ5.normalTitle" = "Button";
+
+/* Class = "UINavigationItem"; title = "Weather"; ObjectID = "Ghb-Wq-8LU"; */
+"Ghb-Wq-8LU.title" = "Weather";
+
+/* Class = "UILabel"; text = "[temp]"; ObjectID = "IP1-bj-Ac3"; */
+"IP1-bj-Ac3.text" = "[temp]";
+
+/* Class = "UILabel"; text = "Label"; ObjectID = "Msl-9L-zKJ"; */
+"Msl-9L-zKJ.text" = "Label";
+
+/* Class = "UILabel"; text = "[char_weather]"; ObjectID = "PeG-ge-HMh"; */
+"PeG-ge-HMh.text" = "[char_weather]";
+
+/* Class = "UITabBarItem"; title = "Location"; ObjectID = "TC8-ku-NZW"; */
+"TC8-ku-NZW.title" = "Location";
+
+/* Class = "UIBarButtonItem"; title = "Item"; ObjectID = "t6z-Z7-Jsl"; */
+"t6z-Z7-Jsl.title" = "Item";
+
+/* Class = "UILabel"; text = "[date]"; ObjectID = "wL5-EA-vws"; */
+"wL5-EA-vws.text" = "[date]";

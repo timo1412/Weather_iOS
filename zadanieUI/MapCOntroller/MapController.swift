@@ -10,17 +10,18 @@ import UIKit
 import MapKit
 
 class MapController: UIViewController {
+//    MARK:OUTLETS
     @IBOutlet weak var mapView: MKMapView!
     @IBOutlet weak var addressLabel: UILabel!
-    
+//    MARK:BUTTONS
     @IBAction func showCustomeWeather(_ sender: Any) {
         presentDetailCustomeWeather()
     }
+//    MARK:VARIABLES
     private var geocoder = CLGeocoder()
-    
     var myPlacemarks: CLPlacemark?
     var place = Place(city: "Prievidza", country: "Slovensko")
-    var defaulPlace : Place = Place.init(city: "Prievidza", country: "Slovensko")
+    
     let regionInMeter:Double = 10000
     
     override func viewDidLoad() {
@@ -30,11 +31,9 @@ class MapController: UIViewController {
     }
     
     func presentDetailCustomeWeather() {
-
-        place.city = (myPlacemarks?.locality)!
-        place.country = (myPlacemarks?.country)!
-//        self.place.city = (myPlacemarks?.locality)!
-//        self.place.country = (myPlacemarks?.country)!
+        place.city = (myPlacemarks?.locality) ?? place.city
+        place.country = (myPlacemarks?.country) ?? place.country
+        
         self.presentCustomDetailWeather(with: self.place)
     }
     
@@ -50,8 +49,8 @@ class MapController: UIViewController {
 
 extension MapController: LocationManagerMapDelegate {
     func locationManager(_locationManager: LocationManager, didLoadMapLocation mapLocation: String) {
-        print("region map controller")
         mapView.showsUserLocation = true
+        
         let region = MKCoordinateRegion.init(center: LocationManager.shared.location!.coordinate, latitudinalMeters: regionInMeter, longitudinalMeters: regionInMeter)
         mapView.setRegion(region, animated: true)
     }
@@ -75,9 +74,7 @@ extension MapController: MKMapViewDelegate {
             
             let streetNumber = placemark.subThoroughfare ?? ""
             let streetName = placemark.thoroughfare ?? ""
-            let mapLat = placemark.location?.coordinate.latitude
-            let mapLon = placemark.location?.coordinate.longitude
-//            print(" lat \(mapLat) , lon \(mapLon)")
+
             self.addressLabel.text = "\(streetName) \(streetNumber)"
         }
     }

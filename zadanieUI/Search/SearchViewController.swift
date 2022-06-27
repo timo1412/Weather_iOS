@@ -20,16 +20,13 @@ class SearchViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         setupSearchController()
-        // Do any additional setup after loading the view.
     }
     
     @IBAction func close(_ sender: Any) {
         dismiss(animated: true)
     }
     
-    
-    func setupSearchController(){
-//        navigationItem.title = "Search"
+    func setupSearchController() {
         navigationItem.searchController = searchController
         searchController.obscuresBackgroundDuringPresentation = false
         navigationItem.searchController?.searchBar.delegate = self
